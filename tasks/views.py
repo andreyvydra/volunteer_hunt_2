@@ -11,4 +11,5 @@ class TaskView(View):
         context = {
             'task': task
         }
+        print(1)
         return render(request, self.template_name, context)
