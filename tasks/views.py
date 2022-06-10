@@ -6,11 +6,9 @@ from tasks.models import Task
 class TaskView(View):
     template_name = 'task/index.html'
 
-    def get(self, pk, request):
+    def get(self, request, pk):
         task = Task.objects.get(pk=pk)
         context = {
             'task': task
         }
         return render(request, self.template_name, context)
-
-

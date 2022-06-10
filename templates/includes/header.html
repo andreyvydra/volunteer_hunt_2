@@ -1,18 +1,57 @@
-<header id="header" class="sticky-top">
-    <div class="container d-flex align-items-center justify-content-between">
-        <h1 class="logo"><a href="">Hackathon</a></h1>
-        <nav id="navbar" class="navbar">
-            <ul>
-                {% if request.user.is_superuser %}
-                    <li>
-                        <a class="nav-link scrollto" href="{% url 'admin:index' %}">
-                            Админка
-                        </a>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand me-2" href="https://mdbgo.com/">
+                <img
+                        src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+                        height="16"
+                        alt="MDB Logo"
+                        loading="lazy"
+                        style="margin-top: -1px;"
+                />
+            </a>
+
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarButtonsExample"
+                    aria-controls="navbarButtonsExample"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarButtonsExample">
+                {#left#}
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="">home</a>
                     </li>
-                {% endif %}
-                <li><a class="getstarted" href='{% url 'login' %}'>Войти</a></li>
-            </ul>
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav>
-    </div>
+                </ul>
+
+                {#right#}
+                <div class="d-flex align-items-center">
+                    {% if request.user.is_authenticated %}
+                        {% if request.user.is_superuser %}
+                            <a class="btn btn-link px-3 me-2" href="{% url 'admin:index' %}">
+                                Админка
+                            </a>
+                        {% endif %}
+                        <a class="btn btn-link px-3 me-2" href="{% url 'logout' %}">
+                            Выход
+                        </a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-link px-3 me-2">
+                            Вход
+                        </a>
+                        <a href="{% url 'signup' %}" class="btn btn-primary me-3">
+                           Регистрация
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
 </header>
