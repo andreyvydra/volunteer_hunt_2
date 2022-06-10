@@ -13,3 +13,4 @@ class TaskView(View):
         }
         print(1)
         return render(request, self.template_name, context)
+
