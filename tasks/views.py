@@ -12,7 +12,3 @@ class TaskView(View):
             'task': task
         }
         return render(request, self.template_name, context)
-
-
-
-
