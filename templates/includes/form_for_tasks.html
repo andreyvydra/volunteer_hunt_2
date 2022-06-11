@@ -42,7 +42,9 @@
         });
 
         {% if lon %}
-            var marker = new mapboxgl.Marker().setLngLat([{{ lon }}, {{ lat }}])
+            var marker = new mapboxgl.Marker({
+                color: "{{ color }}"
+            }).setLngLat([{{ lon }}, {{ lat }}])
             marker.addTo(map);
         {% else %}
             var marker = new mapboxgl.Marker()

@@ -70,6 +70,7 @@ class UpdateTaskView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         context['MAPBOX_ACCESS_TOKEN'] = MAPBOX_ACCESS_TOKEN
         context['lon'], context['lat'] = self.object.point_on_map.split()
+        context['color'] = self.object.category.color
         return context
 
 
