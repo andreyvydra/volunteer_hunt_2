@@ -14,7 +14,7 @@ class MyUserAdmin(UserAdmin):
         ('Важные даты', {'fields': ('last_login', 'date_joined')}),
     )
     ordering = ('email',)
-    list_display = ['first_name', 'last_name', 'email']
+    list_display = ['first_name', 'last_name', 'email', 'telegram_id']
 
 
 admin.site.register(User, MyUserAdmin)

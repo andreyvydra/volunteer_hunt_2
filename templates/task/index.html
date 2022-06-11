@@ -9,5 +9,11 @@
         <h1>{{ task.name }}</h1>
         <h4>{{ task.description }}</h4>
     </div>
-
+    {% if is_employer and belongs_to_user %}
+        <form method="POST">
+            {% csrf_token %}
+            <input class="btn btn-danger" type="submit" value="Удалить задачу" name="task_delete">
+            <input class="btn btn-warning" type="submit" value="Изменить задачу" name="task_update">
+        </form>
+    {% endif %}
 {% endblock %}

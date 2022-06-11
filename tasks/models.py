@@ -1,4 +1,5 @@
 from colorfield.fields import ColorField
+from django.core.validators import MinValueValidator
 from django.db import models
 
 from user.models import Volunteer, Employer
@@ -93,9 +94,11 @@ class Task(models.Model):
 
     datetime = models.DateTimeField(verbose_name="Время и дата")
 
-    max_volunteer = models.IntegerField(
+    max_volunteer = models.PositiveIntegerField(
+        default=1,
+        validators=[MinValueValidator(1)],
         verbose_name="Количество волонтёров",
-        blank=True
+        blank=True,
     )
 
     point_on_map = models.CharField(

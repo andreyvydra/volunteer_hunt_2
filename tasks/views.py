@@ -1,14 +1,78 @@
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseNotFound
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views import View
+from django.views.generic import CreateView, UpdateView
+
+from tasks.forms import TaskForm, UpdateTaskForm
 from tasks.models import Task
+from user.models import Employer
 
 
-class TaskView(View):
+class TaskView(LoginRequiredMixin, View):
     template_name = 'task/index.html'
+    success_url = reverse_lazy('map')
 
-    def get(self, request, pk):
-        task = Task.objects.get(pk=pk)
+    def get(self, request, *args, **kwargs):
+        task = Task.objects.get(pk=kwargs['pk'])
+        employer = Employer.objects.filter(user_id=request.user.id)
         context = {
-            'task': task
+            'task': task,
+            'is_employer': bool(employer),
+            'belongs_to_user': task.creator.user_id == request.user.id
         }
         return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        if 'task_delete' in request.POST:
+            task = Task.objects.get(pk=kwargs['pk'])
+            task.delete()
+        elif 'task_update' in request.POST:
+            return redirect(reverse_lazy('task_update', kwargs=kwargs))
+        return redirect(TaskView.success_url)
+
+
+class UpdateTaskView(LoginRequiredMixin, UpdateView):
+    form_class = UpdateTaskForm
+    model = Task
+    template_name = "task/create_update_task.html"
+    success_url = reverse_lazy('map')
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        employer = Employer.objects.filter(user_id=request.user.id)
+
+        if not employer:
+            return HttpResponseNotFound('Задача не была найдена')
+        if employer[0].id != self.object.creator.id:
+            return HttpResponseNotFound('Задача не была найдена')
+        return super().dispatch(request, *args, **kwargs)
+
+
+class CreateTaskView(LoginRequiredMixin, CreateView):
+    form_class = TaskForm
+    template_name = "task/create_update_task.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        employer = Employer.objects.filter(user_id=request.user.id)
+        if not employer:
+            return HttpResponseNotFound('Задача не была найдена')
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        form = CreateTaskView.form_class(request.POST or None)
+        if form.is_valid():
+            task = Task()
+            creator = Employer.objects.get(user_id=request.user.id)
+            task.creator = creator
+            task.name = form.cleaned_data['name']
+            task.category = form.cleaned_data['category']
+            task.description = form.cleaned_data['description']
+            task.datetime = form.cleaned_data['datetime']
+            task.settings = form.cleaned_data['settings']
+            task.max_volunteer = form.cleaned_data['max_volunteer']
+            task.point_on_map = form.cleaned_data['point_on_map']
+            task.save()
+            return render(request, 'task/successful_create_task.html', context={"task_id": task.id})
+        return redirect(reverse_lazy('map'))

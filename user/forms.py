@@ -7,7 +7,7 @@ from django import forms
 class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email')
+        fields = ('first_name', 'last_name', 'email', 'telegram_id')
 
     def clean_password2(self):
         cd = self.cleaned_data

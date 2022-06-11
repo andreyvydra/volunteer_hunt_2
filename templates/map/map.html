@@ -1,5 +1,25 @@
 {% extends 'includes/index.html' %}
 
 {% block main %}
+<div id="map" style="height: 500px;"></div>
+{% endblock %}
 
+{% block js %}
+<script type="text/javascript">
+    mapboxgl.accessToken = "{{ MAPBOX_ACCESS_TOKEN }}";
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [37.6562, 55.7753],
+        zoom: 10
+    });
+    {% for task in tasks %}
+        var marker = new mapboxgl.Marker({
+            color: "{{ task.category.color }}"
+        }).setLngLat([{{ task.lon }}, {{ task.lat }}])
+        .setPopup(new mapboxgl.Popup().setHTML("<a href='{% url 'task_view' task.id %}'>{{ task.name }}</a>"))
+        .addTo(map);
+    {% endfor %}
+
+</script>
 {% endblock %}
