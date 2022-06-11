@@ -5,24 +5,26 @@ VolunteerHunt
 {% endblock %}
 
 {% block css %}
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{% static 'css/homepage.css' %}" rel="stylesheet">
-    <link rel="icon" type="image/png" href="{% static 'img/logo.png' %}"/>
 {% endblock %}
 
 {% block main %}
-    <span class="grey_rect"></span>
-    <img src="{% static 'img/homepage/hello.png' %}" class="hello">
-    <h1 class="greeting"><span class="'greeting_red">Приветствую</span> на <span
-            class="greeting_red">Volunteer</span>Hunt!</h1>
-    <h1 class="number_text">В наших рядах уже <span class="number_text_red">{число}</span> волонтеров
-        и <span class="number_text_red">{число}</span> работадателей!</h1>
-    <span class="very_grey_rect"></span>
-    <h2 class="facts we_are">Мы помогаем всем нуждающимся.</h2>
-    <h2 class="facts its_funny">Волонтерство - отличная возможность сделать мир лучше.</h2>
-    <img src="{% static 'img/homepage/drying.png' %}" class="drying">
-    <img src="{% static 'img/homepage/five.png' %}" class="five">
-    <span class="line"></span>
-    <button class="registration"><h2>Зарегистрироваться</h2></button>
-    <button class="enter"><link href="{% url 'signup' %}"><h2>Вход</h2></button>
+<span class="grey_rect"></span>
+
+<p class="greeting"><span class="'greeting_red">Приветствую</span> на <span
+        class="greeting_red">Volunteer</span>Hunt!</p>
+<img src="{% static 'img/homepage/hello.png' %}" class="hello">
+<p class="number_text">В наших рядах уже <span class="number_text_red">{число}</span> волонтеров
+    и <span class="number_text_red">{число}</span> работодателей!</p>
+
+<span class="very_grey_rect"></span>
+
+<h2 class="fact we_are">Наши волонтеры помогают всемнуждающимся.</h2>
+<h2 class="fact its_funny">Волонтерство - отличная возможность сделать мир лучше.</h2>
+<img src="{% static 'img/homepage/drying.png' %}" class="drying">
+<img src="{% static 'img/homepage/five.png' %}" class="five">
+
+<span class="very_grey_rect_repeat">
+
+</span>
 {% endblock %}
