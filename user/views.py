@@ -1,5 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views import View
+from django.urls import reverse
+
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
 
 import django.contrib.auth.views as admin_views
 
@@ -24,6 +30,12 @@ class SignupView(View):
         else:
             context = {'form': form}
             return render(request, self.template_name, context)
+
+
+@login_required
+def get_user_profile(request, pk):
+    user = User.objects.get(pk=pk)
+    return render(request, 'users/profile.html', {'user': user})
 
 
 # Django auth views

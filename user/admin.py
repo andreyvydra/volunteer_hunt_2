@@ -19,7 +19,6 @@ class MyUserAdmin(UserAdmin):
 
 admin.site.register(User, MyUserAdmin)
 
-
 @admin.register(Volunteer)
 class VolunteerAdmin(admin.ModelAdmin):
     pass

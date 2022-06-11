@@ -4,6 +4,8 @@ from user import views
 urlpatterns = [
     path('signup/', views.SignupView.as_view(), name='signup'),
 
+    path('profile/<pk>/', views.get_user_profile, name='users-profile'),
+
     # Django login
     path(
         'login/',
