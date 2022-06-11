@@ -12,13 +12,12 @@ from user.forms import RegistrationForm
 class ProfileView(View):
     template_name = 'users/profile.html'
 
-    def get(self, request, pk):
-        user = User.objects.get(pk=pk)
+    def get(self, request):
         context = {
-            'user': user
+            'user': request.user
         }
         try:
-            volunteer = Volunteer.objects.get(user=user)
+            volunteer = Volunteer.objects.get(user=request.user)
             context['task'] = volunteer.task
         except Volunteer.DoesNotExist:
             pass
@@ -43,13 +42,6 @@ class SignupView(View):
         else:
             context = {'form': form}
             return render(request, self.template_name, context)
-
-
-@login_required
-def get_user_profile(request, pk):
-    # я переписал чуть выше
-    user = User.objects.get(pk=pk)
-    return render(request, 'users/profile.html', {'user': user})
 
 
 # Django auth views
