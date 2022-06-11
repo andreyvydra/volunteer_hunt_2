@@ -86,7 +86,8 @@ class Task(models.Model):
         to=Employer,
         null=True,
         on_delete=models.SET_NULL,
-        verbose_name="Работодатель"
+        verbose_name="Работодатель",
+        related_name='my_tasks'
     )
 
     description = models.TextField(verbose_name="Описание")

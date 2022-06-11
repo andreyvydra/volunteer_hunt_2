@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views import View
 
-from user.models import User, Volunteer
+from user.models import User, Volunteer, Employer
 
 import django.contrib.auth.views as admin_views
 
@@ -13,15 +13,16 @@ class ProfileView(View):
     template_name = 'users/profile.html'
 
     def get(self, request):
+        user = request.user
         context = {
-            'user': request.user
+            'user': user
         }
         try:
-            volunteer = Volunteer.objects.get(user=request.user)
-            context['task'] = volunteer.task
-            print(volunteer.task.id)
+            volunteer = Volunteer.objects.get(user=user)
+            context['tasks'] = volunteer.task.all()
         except Volunteer.DoesNotExist:
-            pass
+            employer = Employer.objects.get(user=user)
+            context['tasks'] = employer.my_tasks.all()
         return render(request, self.template_name, context)
 
 
