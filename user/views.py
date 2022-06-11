@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views import View
+
+from tasks.models import Task
 from user.models import User
 
 import django.contrib.auth.views as admin_views
@@ -17,7 +19,7 @@ class ProfileView(View):
             'user': user
         }
         if user.volunteer:
-            context['task'] = user.volunteer.objects.get_volunteer_with_tasks()
+            context['task'] = user.volunteer.task
         return render(request, self.template_name, context)
 
 
