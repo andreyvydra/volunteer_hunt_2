@@ -1,4 +1,4 @@
-{% extends 'includes/form.html' %}
+{% extends 'includes/form_for_tasks.html' %}
 
 {% block form_title %}
     {% url 'task_create' as the_url %}
@@ -16,30 +16,4 @@
     {% else %}
         <button type="submit" class="btn btn-warning">Изменить</button>
     {% endif %}
-    <div id="map" style="height: 350px;"></div>
-{% endblock %}
-
-{% block js %}
-<script type="text/javascript">
-    mapboxgl.accessToken = "{{ MAPBOX_ACCESS_TOKEN }}";
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [37.6562, 55.7753],
-        zoom: 10
-    });
-    var marker = new mapboxgl.Marker({
-        color: "{{ form.category.color }}"
-    })
-
-    map.on('click', add_marker.bind(marker))
-
-    function add_marker (event, marker) {
-        console.log(marker);
-        var coordinates = event.lngLat;
-        console.log('Lng:', coordinates.lng, 'Lat:', coordinates.lat);
-        marker.setLngLat(coordinates).addTo(map);
-    }
-
-</script>
 {% endblock %}

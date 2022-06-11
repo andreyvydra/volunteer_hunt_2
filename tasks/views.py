@@ -53,6 +53,7 @@ class UpdateTaskView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['MAPBOX_ACCESS_TOKEN'] = MAPBOX_ACCESS_TOKEN
+        context['lon'], context['lat'] = self.object.point_on_map.split()
         return context
 
 
