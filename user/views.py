@@ -19,6 +19,7 @@ class ProfileView(View):
         try:
             volunteer = Volunteer.objects.get(user=request.user)
             context['task'] = volunteer.task
+            print(volunteer.task.id)
         except Volunteer.DoesNotExist:
             pass
         return render(request, self.template_name, context)

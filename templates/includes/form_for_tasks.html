@@ -42,8 +42,12 @@
         zoom: 10
     });
 
-    var marker = new mapboxgl.Marker().setLngLat([{{lon}}, {{lat}}])
-    marker.addTo(map);
+    {% if lon %}
+        var marker = new mapboxgl.Marker().setLngLat([{{ lon }}, {{ lat }}])
+        marker.addTo(map);
+    {% else %}
+        var marker = new mapboxgl.Marker()
+    {% endif %}
 
     map.on('click', add_marker.bind(marker))
 
