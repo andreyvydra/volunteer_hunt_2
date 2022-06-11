@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
 
-from user.managers import UserManager
+from user.managers import UserManager, VolunteerManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -37,6 +37,7 @@ class Volunteer(models.Model):
     )
 
     level = models.IntegerField(verbose_name="Уровень")
+    objects = VolunteerManager()
 
     class Meta:
         verbose_name = "Волонтёр"
@@ -58,4 +59,3 @@ class Employer(models.Model):
 
     def __str__(self):
         return str(self.user)
-

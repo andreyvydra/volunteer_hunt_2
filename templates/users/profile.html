@@ -1,5 +1,5 @@
 {% load static %}
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -34,8 +34,13 @@
     {% include 'includes/messages.html' %}
 {% endif %}
 
+<div class="container">
+    <h1>{{ user.username }}</h1>
+    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+    <h4>{{ user.email }} </h4>
+</div>
 
-<main id="main" class="mt-2">
+<main id="main">
     {% block main %}
 
     {% endblock %}

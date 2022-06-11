@@ -1,4 +1,7 @@
 from django.contrib.auth.base_user import BaseUserManager
+from django.db import models
+from django.db.models import Prefetch
+from django.apps import apps
 
 
 class UserManager(BaseUserManager):
@@ -21,3 +24,13 @@ class UserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
         return self.create_user(email, password, **extra_fields)
+
+
+class VolunteerManager(models.Manager):
+    def get_volunteer_with_tasks(self):
+        return self.prefetch_related(
+            Prefetch(
+                'task',
+                queryset=apps.get_model('user.Volunteer').objects.filter(volunteers=self)
+            )
+        )

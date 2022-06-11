@@ -1,15 +1,25 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views import View
-from django.urls import reverse
 
-from django.contrib.auth import get_user_model
-User = get_user_model()
-
+from user.models import User
 
 import django.contrib.auth.views as admin_views
 
 from user.forms import RegistrationForm
+
+
+class ProfileView(View):
+    template_name = 'users/profile.html'
+
+    def get(self, request, pk):
+        user = User.objects.get(pk=pk)
+        context = {
+            'user': user
+        }
+        if user.volunteer:
+            context['task'] = user.volunteer.task
+        return render(request, self.template_name, context)
 
 
 class SignupView(View):
@@ -34,6 +44,7 @@ class SignupView(View):
 
 @login_required
 def get_user_profile(request, pk):
+    # я переписал чуть выше
     user = User.objects.get(pk=pk)
     return render(request, 'users/profile.html', {'user': user})
 
