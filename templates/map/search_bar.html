@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="card m-auto">
+            <div class="card-body">
+                <div class="card-title">
+                    <h3>
+                        Поиск
+                    </h3>
+                </div>
+                <form method="get">
+                    <input type="hidden" name="type" value="search">
+                    <div class="align-items-center">
+                        <label for="category" class="form-label">Категория</label>
+                        <div class="input-group mb-3">
+                            <input
+                                    name="category"
+                                    id="category"
+                                    class="form-control"
+                                    aria-describedby="category-addon"
+                                    placeholder="Начните вводить чтобы найти"
+                            />
+                        </div>
+
+                        <div class="row row-cols-auto mt-4">
+                            <div class="col">
+                                <label for="from-date" class="form-label">
+                                    От какой даты
+                                </label>
+                                <input
+                                        name="from_date"
+                                        type="date"
+                                        id="from-date"
+                                        class="form-control"
+                                        value="{{ request.GET.from_date }}"
+                                >
+                            </div>
+
+                            <div class="col">
+                                <label for="to-date" class="form-label">
+                                    До какой даты
+                                </label>
+                                <input
+                                        name="to_date"
+                                        id="to-date"
+                                        type="date"
+                                        class="form-control"
+                                        value="{{ request.GET.to_date }}"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary  m-2" type="submit">Найти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

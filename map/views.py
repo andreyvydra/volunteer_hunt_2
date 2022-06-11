@@ -14,14 +14,14 @@ class MapView(LoginRequiredMixin, View):
         context = dict()
         context["MAPBOX_ACCESS_TOKEN"] = MAPBOX_ACCESS_TOKEN
         employer = Employer.objects.filter(user_id=request.user.id)
+        tasks = Task.objects.get_tasks_from_context(request.GET).values(
+            "point_on_map", "category", "name", "id"
+        )
 
         if employer:
-            context["tasks"] = Task.objects.\
-                values("point_on_map", "category", "name", "id").\
-                filter(creator__user_id=request.user.id)
+            context["tasks"] = tasks.filter(creator__user_id=request.user.id)
         else:
-            context["tasks"] = Task.objects. \
-                values("point_on_map", "category", "name", "id").all()
+            context["tasks"] = tasks
 
         for task in context["tasks"]:
             task["lon"], task["lat"] = task["point_on_map"].split()

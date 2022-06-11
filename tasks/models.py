@@ -3,6 +3,7 @@ from django.core.validators import MinValueValidator
 from django.db import models
 
 from user.models import Volunteer, Employer
+from tasks.managers import TaskManager
 
 
 class Category(models.Model):
@@ -107,6 +108,8 @@ class Task(models.Model):
         max_length=60,
         verbose_name="Метка на карте"
     )
+
+    objects = TaskManager()
 
     class Meta:
         verbose_name = "Задача"
