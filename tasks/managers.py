@@ -3,7 +3,7 @@ from django.db import models
 
 class TaskManager(models.Manager):
     def get_tasks_from_context(self, context: dict):
-        obj_to_return = self.filter(is_visible=True)
+        obj_to_return = self
 
         category = context.get('category')
         from_date = context.get('from_date')
