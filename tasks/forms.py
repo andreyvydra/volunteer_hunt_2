@@ -1,10 +1,18 @@
+from django import forms
 from django.forms import ModelForm, DateInput, HiddenInput
 
 from hackaton_test.settings import DATE_INPUT_FORMATS
 from tasks.models import Task
 
 
-class TaskForm(ModelForm):
+class BaseForm(forms.BaseForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
+
+class TaskForm(ModelForm, BaseForm):
     def __init__(self, *args, **kwargs):
         super(TaskForm, self).__init__(*args, **kwargs)
         self.fields['point_on_map'].widget = HiddenInput()
@@ -24,8 +32,7 @@ class TaskForm(ModelForm):
         }
 
 
-
-class UpdateTaskForm(ModelForm):
+class UpdateTaskForm(ModelForm, BaseForm):
     def __init__(self, *args, **kwargs):
         super(UpdateTaskForm, self).__init__(*args, **kwargs)
         self.initial['datetime'] = self.initial['datetime'].strftime(DATE_INPUT_FORMATS[0])
