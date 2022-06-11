@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views import View
 
 from user.models import User, Volunteer, Employer
@@ -29,6 +30,11 @@ class ProfileView(View):
 class SignupView(View):
     template_name = 'users/auth/signup.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect(reverse_lazy('homepage'))
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request):
         form = RegistrationForm()
         context = {'form': form}
@@ -49,6 +55,11 @@ class SignupView(View):
 # Django auth views
 class LoginView(admin_views.LoginView):
     template_name = 'users/auth/login.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect(reverse_lazy('homepage'))
+        return super().dispatch(request, *args, **kwargs)
 
 
 class PasswordChangeDoneView(admin_views.PasswordChangeDoneView):
