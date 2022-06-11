@@ -1,10 +1,12 @@
+from django.contrib.auth.decorators import login_required
 from django.urls import path
 from user import views
+
 
 urlpatterns = [
     path('signup/', views.SignupView.as_view(), name='signup'),
 
-    path('profile/<pk>/', views.get_user_profile, name='users-profile'),
+    path('profile/', login_required(views.ProfileView.as_view()), name='users-profile'),
 
     # Django login
     path(
