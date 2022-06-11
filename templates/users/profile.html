@@ -10,7 +10,7 @@
             <h4>Я лох без работ</h4>
         {% endif %}
         <mdb-list-group>
-        {% for task in tasks %}
+            {% for task in tasks %}
             <a href="{% url 'task_view' task.id %}">
             <mdb-list-group-item>
               <div>
@@ -24,7 +24,7 @@
               </div>
             </mdb-list-group-item>
             </a>
-        {% endfor %}
+            {% endfor %}
         </mdb-list-group>
     </div>
 {% endblock %}

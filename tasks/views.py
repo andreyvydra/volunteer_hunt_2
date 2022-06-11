@@ -23,14 +23,17 @@ class TaskView(LoginRequiredMixin, View):
             'task': task,
             'is_employer': bool(employer),
             'is_volunteer': bool(volunteer),
-            'belongs_to_user': task.creator.user_id == request.user.id
+            'belongs_to_user': task.creator.user_id == request.user.id,
         }
         # print(task.volunteers.values_list('user_id', flat=True).all())
         volunteersValuesList = task.volunteers.values_list('user_id', flat=True).all()
+        context['volunteers_number'] = len(volunteersValuesList)
         if request.user.id in volunteersValuesList:
             context['volunteer_on_task'] = True
         if len(volunteersValuesList) < task.max_volunteer:
             context['volunteer_not_enough'] = True
+
+
         context['MAPBOX_ACCESS_TOKEN'] = MAPBOX_ACCESS_TOKEN
         return render(request, self.template_name, context)
 
@@ -48,6 +51,7 @@ class TaskView(LoginRequiredMixin, View):
             user = User.objects.get(pk=request.user.id)
             task.volunteers.remove(user.volunteer)
             task.save()
+
         return redirect(TaskView.success_url)
 
 

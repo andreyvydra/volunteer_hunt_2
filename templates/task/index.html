@@ -11,7 +11,9 @@
         <p>Время начала: {{ task.datetime }}</p>
         <p>Категория: <span style="color: {{task.category.color}}">{{ task.category.name }}</span></p>
         <p>Требуемое кол-во волонтёров: {{ task.max_volunteer }}</p>
-
+        {% if volunteers_number > 0 %}
+        <p>На задаче уже <strong>{{ volunteers_number }} </strong>волонтёр(а)!</p>
+        {% endif %}
     </div>
     {% if is_employer and belongs_to_user %}
         <form method="POST">
