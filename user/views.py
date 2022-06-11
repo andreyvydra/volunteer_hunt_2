@@ -46,6 +46,15 @@ class SignupView(View):
             new_user = form.save(commit=False)
             new_user.set_password(form.cleaned_data['password1'])
             new_user.save()
+            if request.POST['user_type'] == "1":
+                new_volunteer = Volunteer()
+                new_volunteer.user = new_user
+                new_volunteer.level = 1
+                new_volunteer.save()
+            else:
+                new_employer = Employer()
+                new_employer.user = new_user
+                new_employer.save()
             return redirect('login')
         else:
             context = {'form': form}
