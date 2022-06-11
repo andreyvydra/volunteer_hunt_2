@@ -26,8 +26,11 @@ class TaskView(LoginRequiredMixin, View):
             'belongs_to_user': task.creator.user_id == request.user.id
         }
         # print(task.volunteers.values_list('user_id', flat=True).all())
-        if request.user.id in task.volunteers.values_list('user_id', flat=True).all():
+        volunteersValuesList = task.volunteers.values_list('user_id', flat=True).all()
+        if request.user.id in volunteersValuesList:
             context['volunteer_on_task'] = True
+        if len(volunteersValuesList) < task.max_volunteer:
+            context['volunteer_not_enough'] = True
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
