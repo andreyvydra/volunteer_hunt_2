@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% extends 'includes/index.html' %}
+
+{% block main %}
+<section class="container">
+
+    <h1>{% block form_title %}Заголовок{% endblock %}</h1>
+
+    <div class="container">
+        <form action="" method="post" id="form">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="mb-3">
+                {{ field.label_tag }} {{ field }}
+                {% if field.errors %}
+                <div style="color: red">
+                    {% for error in field.errors %}
+                    {{ error }}
+                    <br/>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <div id="map" style="height: 350px;"></div>
+            {% block buttons %}
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            {% endblock %}
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    mapboxgl.accessToken = "{{ MAPBOX_ACCESS_TOKEN }}";
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [37.6562, 55.7753],
+        zoom: 10
+    });
+
+    var marker = new mapboxgl.Marker().setLngLat([{{lon}}, {{lat}}])
+    marker.addTo(map);
+
+    map.on('click', add_marker.bind(marker))
+
+    function add_marker (event) {
+        var coordinates = event.lngLat;
+        marker.setLngLat(coordinates).addTo(map);
+        form.point_on_map.value = marker.getLngLat().lng + " " + marker.getLngLat().lat;
+    }
+
+
+</script>
+{% endblock %}
