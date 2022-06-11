@@ -1,0 +1,7 @@
+{% extends 'includes/index.html' %}
+{% block css %}
+    <meta http-equiv="refresh" content="3;url={% url 'map' %}">
+{% endblock %}
+{% block main %}
+    <h3>Задача успешно создана. Её номер <strong>{{ task_id }}</strong></h3>
+{% endblock %}
