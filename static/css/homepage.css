@@ -1,0 +1,109 @@
+body{
+    color: #F5F5F5;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 1443px;
+    max-height: 300px;
+}
+
+.grey_rect{
+    position: absolute;
+    background-color: #AFADAD;
+    width: 200vw;
+    height: 100vw;
+    left: -100vw;
+    transform: rotate(-113deg);
+    display: inline-block;
+}
+
+.very_grey_rect{
+    position: absolute;
+    background-color: #D9D9D9;
+    width: 200vw;
+    height: 200vw;
+    top: 40vh;
+    transform: rotate(167deg);
+    display: inline-block;
+}
+
+.greeting{
+    position: relative;
+    color: black;
+    left: 4vw;
+    max-width: 30vw;
+    margin-top: 5%;
+    margin-bottom: 0%;
+    font-size: 3.7vw;
+}
+
+.greeting_red{
+    color: #960000;
+}
+
+.number_text{
+    position: relative;
+    color: black;
+    left: 4vw;
+    max-width: 30vw;
+    font-size: 2.7vw;
+    margin-top: 0%;
+}
+
+.number_text_red{
+    color: #960000;
+}
+
+.reg_ent_txt{
+    max-width: 16vw;
+}
+
+.fact{
+    position: absolute;
+    color: black;
+    font-size: 2vw;
+}
+
+.we_are{
+    top: 70%;
+    right: 5vw;
+    z-index: 1;
+}
+
+.its_funny{
+    top: 85%;
+    left: 5vw;
+    z-index: 1;
+}
+
+.hello{
+    position: relative;
+    width: 5vw;
+    height: 5vw;
+    left: 4vw;
+    margin-top: 0%;
+}
+
+.drying{
+     position: absolute;
+     width: 10vh;
+     height: 10vh;
+     top: 65%;
+     right: 52vw;
+}
+
+.five{
+    position: absolute;
+    width: 10vh;
+    height: 10vh;
+    top: 80%;
+    left: 65vw;
+}
+
+.very_grey_rect_repeat{
+    position: absolute;
+    background-color: #D9D9D9;
+    width: 100%;
+    height: 1443px;
+    top: 100%;
+    display: inline-block;
+}
