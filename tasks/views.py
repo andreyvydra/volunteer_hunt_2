@@ -8,7 +8,7 @@ from django.views.generic import CreateView, UpdateView
 from hackaton_test.settings import MAPBOX_ACCESS_TOKEN
 from tasks.forms import TaskForm, UpdateTaskForm
 from tasks.models import Task
-from user.models import Employer
+from user.models import Employer, Volunteer, User
 
 
 class TaskView(LoginRequiredMixin, View):
@@ -18,19 +18,32 @@ class TaskView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         task = Task.objects.get(pk=kwargs['pk'])
         employer = Employer.objects.filter(user_id=request.user.id)
+        volunteer = Volunteer.objects.filter(user_id=request.user.id)
         context = {
             'task': task,
             'is_employer': bool(employer),
+            'is_volunteer': bool(volunteer),
             'belongs_to_user': task.creator.user_id == request.user.id
         }
+        # print(task.volunteers.values_list('user_id', flat=True).all())
+        if request.user.id in task.volunteers.values_list('user_id', flat=True).all():
+            context['volunteer_on_task'] = True
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
+        task = Task.objects.get(pk=kwargs['pk'])
         if 'task_delete' in request.POST:
-            task = Task.objects.get(pk=kwargs['pk'])
             task.delete()
         elif 'task_update' in request.POST:
             return redirect(reverse_lazy('task_update', kwargs=kwargs))
+        elif 'task_join' in request.POST:
+            user = User.objects.get(pk=request.user.id)
+            task.volunteers.add(user.volunteer)
+            task.save()
+        elif 'task_leave' in request.POST:
+            user = User.objects.get(pk=request.user.id)
+            task.volunteers.remove(user.volunteer)
+            task.save()
         return redirect(TaskView.success_url)
 
 
@@ -43,7 +56,6 @@ class UpdateTaskView(LoginRequiredMixin, UpdateView):
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         employer = Employer.objects.filter(user_id=request.user.id)
-
         if not employer:
             return HttpResponseNotFound('Задача не была найдена')
         if employer[0].id != self.object.creator.id:

@@ -66,6 +66,7 @@ class Task(models.Model):
         related_name="task",
         verbose_name="Волонтёры",
         blank=True
+
     )
 
     settings = models.ForeignKey(

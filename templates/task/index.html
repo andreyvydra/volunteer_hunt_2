@@ -16,4 +16,16 @@
             <input class="btn btn-warning" type="submit" value="Изменить задачу" name="task_update">
         </form>
     {% endif %}
+    {% if is_volunteer and not volunteer_on_task %}
+        <form method="POST">
+            {% csrf_token %}
+            <input class="btn btn-primary" type="submit" value="Присоединиться к задаче" name="task_join">
+        </form>
+    {% endif %}
+    {% if is_volunteer and volunteer_on_task %}
+        <form method="POST">
+            {% csrf_token %}
+            <input class="btn btn-secondary" type="submit" value="Уйти с задачи" name="task_leave">
+        </form>
+    {% endif %}
 {% endblock %}
