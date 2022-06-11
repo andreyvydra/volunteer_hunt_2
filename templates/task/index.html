@@ -6,8 +6,12 @@
 
 {% block main %}
     <div class="container">
-        <h1>{{ task.name }}</h1>
-        <h4>{{ task.description }}</h4>
+        <h2>{{ task.name }}</h2>
+        <p>Описание: {{ task.description }}</p>
+        <p>Время начала: {{ task.datetime }}</p>
+        <p>Категория: <span style="color: {{task.category.color}}">{{ task.category.name }}</span></p>
+        <p>Требуемое кол-во волонтёров: {{ task.max_volunteer }}</p>
+
     </div>
     {% if is_employer and belongs_to_user %}
         <form method="POST">
@@ -29,3 +33,4 @@
         </form>
     {% endif %}
 {% endblock %}
+

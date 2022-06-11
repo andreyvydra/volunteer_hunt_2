@@ -31,6 +31,7 @@ class TaskView(LoginRequiredMixin, View):
             context['volunteer_on_task'] = True
         if len(volunteersValuesList) < task.max_volunteer:
             context['volunteer_not_enough'] = True
+        context['MAPBOX_ACCESS_TOKEN'] = MAPBOX_ACCESS_TOKEN
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
