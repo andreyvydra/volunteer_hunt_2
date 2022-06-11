@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views import View
 
-from user.models import User
+from user.models import User, Volunteer
 
 import django.contrib.auth.views as admin_views
 
@@ -17,8 +17,11 @@ class ProfileView(View):
         context = {
             'user': user
         }
-        if user.volunteer:
+        try:
+            volunteer = Volunteer.objects.get(user=user)
             context['task'] = user.volunteer.task
+        except Volunteer.DoesNotExist:
+            pass
         return render(request, self.template_name, context)
 
 

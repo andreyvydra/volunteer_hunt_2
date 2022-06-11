@@ -7,7 +7,7 @@ from user.models import User, Volunteer, Employer
 class MyUserAdmin(UserAdmin):
     fieldsets = (
         ('Конфиденциальная информация', {'fields': ('email', 'password')}),
-        ('Персональная информация', {'fields': ('first_name', 'last_name')}),
+        ('Персональная информация', {'fields': ('first_name', 'last_name', 'username')}),
         ('Разрешения', {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'user_permissions'),
         }),
@@ -18,6 +18,7 @@ class MyUserAdmin(UserAdmin):
 
 
 admin.site.register(User, MyUserAdmin)
+
 
 @admin.register(Volunteer)
 class VolunteerAdmin(admin.ModelAdmin):
