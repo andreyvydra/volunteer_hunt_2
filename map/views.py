@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views import View
@@ -14,12 +16,16 @@ class MapView(LoginRequiredMixin, View):
         context = dict()
         context["MAPBOX_ACCESS_TOKEN"] = MAPBOX_ACCESS_TOKEN
         employer = Employer.objects.filter(user_id=request.user.id)
-        tasks = Task.objects.get_tasks_from_context(request.GET).only(
+        tasks = Task.objects.get_tasks_from_context(request.GET)\
+            .filter(datetime__gte=datetime.datetime.now())\
+            .prefetch_related("category").only(
             "point_on_map", "category", "name", "id"
         )
 
         if employer:
-            context["tasks"] = tasks.filter(creator__user_id=request.user.id)
+            context["tasks"] = tasks.filter(
+                creator__user_id=request.user.id
+            )
         else:
             context["tasks"] = tasks
 

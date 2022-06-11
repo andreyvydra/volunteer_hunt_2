@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -20,10 +22,12 @@ class ProfileView(View):
         }
         try:
             volunteer = Volunteer.objects.get(user=user)
-            context['tasks'] = volunteer.task.all()
+            context['active_tasks'] = volunteer.task.filter(datetime__gte=datetime.datetime.now())
+            context['not_active_tasks'] = volunteer.task.filter(datetime__lt=datetime.datetime.now())
         except Volunteer.DoesNotExist:
             employer = Employer.objects.get(user=user)
-            context['tasks'] = employer.my_tasks.all()
+            context['active_tasks'] = employer.my_tasks.filter(datetime__gte=datetime.datetime.now())
+            context['not_active_tasks'] = employer.my_tasks.filter(datetime__lt=datetime.datetime.now())
         return render(request, self.template_name, context)
 
 

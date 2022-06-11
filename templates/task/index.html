@@ -15,24 +15,29 @@
         <p>На задаче уже <strong>{{ volunteers_number }} </strong>волонтёр(а)!</p>
         {% endif %}
     </div>
-    {% if is_employer and belongs_to_user %}
-        <form method="POST">
-            {% csrf_token %}
-            <input class="btn btn-danger" type="submit" value="Удалить задачу" name="task_delete">
-            <input class="btn btn-warning" type="submit" value="Изменить задачу" name="task_update">
-        </form>
+    {% if is_active_task %}
+        {% if is_employer and belongs_to_user %}
+            <form method="POST">
+                {% csrf_token %}
+                <input class="btn btn-danger" type="submit" value="Удалить задачу" name="task_delete">
+                <input class="btn btn-warning" type="submit" value="Изменить задачу" name="task_update">
+            </form>
+        {% endif %}
+        {% if is_volunteer and not volunteer_on_task and volunteer_not_enough %}
+            <form method="POST">
+                {% csrf_token %}
+                <input class="btn btn-primary" type="submit" value="Присоединиться к задаче" name="task_join">
+            </form>
+        {% endif %}
+        {% if is_volunteer and volunteer_on_task %}
+            <form method="POST">
+                {% csrf_token %}
+                <input class="btn btn-secondary" type="submit" value="Уйти с задачи" name="task_leave">
+            </form>
+        {% endif %}
+    {% else %}
+        <p><strong>Задача уже неактивна</strong></p>
     {% endif %}
-    {% if is_volunteer and not volunteer_on_task and volunteer_not_enough %}
-        <form method="POST">
-            {% csrf_token %}
-            <input class="btn btn-primary" type="submit" value="Присоединиться к задаче" name="task_join">
-        </form>
-    {% endif %}
-    {% if is_volunteer and volunteer_on_task %}
-        <form method="POST">
-            {% csrf_token %}
-            <input class="btn btn-secondary" type="submit" value="Уйти с задачи" name="task_leave">
-        </form>
-    {% endif %}
+
 {% endblock %}
 

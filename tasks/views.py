@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
@@ -23,16 +25,16 @@ class TaskView(LoginRequiredMixin, View):
             'task': task,
             'is_employer': bool(employer),
             'is_volunteer': bool(volunteer),
+            'is_active_task': task.datetime.timestamp() >= datetime.datetime.now().timestamp(),
             'belongs_to_user': task.creator.user_id == request.user.id,
         }
-        # print(task.volunteers.values_list('user_id', flat=True).all())
-        volunteersValuesList = task.volunteers.values_list('user_id', flat=True).all()
-        context['volunteers_number'] = len(volunteersValuesList)
-        if request.user.id in volunteersValuesList:
-            context['volunteer_on_task'] = True
-        if len(volunteersValuesList) < task.max_volunteer:
-            context['volunteer_not_enough'] = True
 
+        volunteers_values_list = task.volunteers.values_list('user_id', flat=True).all()
+        context['volunteers_number'] = len(volunteers_values_list)
+        if request.user.id in volunteers_values_list:
+            context['volunteer_on_task'] = True
+        if len(volunteers_values_list) < task.max_volunteer:
+            context['volunteer_not_enough'] = True
 
         context['MAPBOX_ACCESS_TOKEN'] = MAPBOX_ACCESS_TOKEN
         return render(request, self.template_name, context)
@@ -68,6 +70,8 @@ class UpdateTaskView(LoginRequiredMixin, UpdateView):
             return HttpResponseNotFound('Задача не была найдена')
         if employer[0].id != self.object.creator.id:
             return HttpResponseNotFound('Задача не была найдена')
+        if self.object.datetime.timestamp() < datetime.datetime.now().timestamp():
+            return HttpResponseNotFound('Задача уже была завершена')
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
