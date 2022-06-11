@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, UpdateView
 
+from hackaton_test.settings import MAPBOX_ACCESS_TOKEN
 from tasks.forms import TaskForm, UpdateTaskForm
 from tasks.models import Task
 from user.models import Employer
@@ -49,6 +50,11 @@ class UpdateTaskView(LoginRequiredMixin, UpdateView):
             return HttpResponseNotFound('Задача не была найдена')
         return super().dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['MAPBOX_ACCESS_TOKEN'] = MAPBOX_ACCESS_TOKEN
+        return context
+
 
 class CreateTaskView(LoginRequiredMixin, CreateView):
     form_class = TaskForm
@@ -59,6 +65,11 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
         if not employer:
             return HttpResponseNotFound('Задача не была найдена')
         return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['MAPBOX_ACCESS_TOKEN'] = MAPBOX_ACCESS_TOKEN
+        return context
 
     def post(self, request, *args, **kwargs):
         form = CreateTaskView.form_class(request.POST or None)
