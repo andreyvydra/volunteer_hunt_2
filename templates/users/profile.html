@@ -9,8 +9,22 @@
         {% else %}
             <h4>Я лох без работ</h4>
         {% endif %}
+        <mdb-list-group>
         {% for task in tasks %}
-            {{ task }}
+            <a href="{% url 'task_view' task.id %}">
+            <mdb-list-group-item>
+              <div>
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-2 h5">{{ task.name }}</h5>
+                  <small>{{task.datetime}}</small>
+                </div>
+                <p class="mb-2">
+                  {{task.description}}
+                </p>
+              </div>
+            </mdb-list-group-item>
+            </a>
         {% endfor %}
+        </mdb-list-group>
     </div>
 {% endblock %}
