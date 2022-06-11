@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views import View
+
 from user.models import User
 
 import django.contrib.auth.views as admin_views
@@ -11,13 +12,13 @@ from user.forms import RegistrationForm
 class ProfileView(View):
     template_name = 'users/profile.html'
 
-    def get(self, request):
-        user = request.user
+    def get(self, request, pk):
+        user = User.objects.get(pk=pk)
         context = {
             'user': user
         }
         if user.volunteer:
-            context['task'] = user.volunteer.objects.get_volunteer_with_tasks()
+            context['task'] = user.volunteer.task
         return render(request, self.template_name, context)
 
 
