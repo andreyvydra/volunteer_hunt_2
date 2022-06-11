@@ -6,7 +6,7 @@ from user import views
 urlpatterns = [
     path('signup/', views.SignupView.as_view(), name='signup'),
 
-    path('profile/<pk>/', login_required(views.ProfileView.as_view()), name='users-profile'),
+    path('profile/', login_required(views.ProfileView.as_view()), name='users-profile'),
 
     # Django login
     path(
