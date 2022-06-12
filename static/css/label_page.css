@@ -17,20 +17,33 @@ body{
 
 .avatar{
     position: absolute;
-    width: 20vw;
-    height: 20vw;
-    border-radius: 10vw;
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
     top: 10vh;
-    right: 10vh;
+    right: 5vw;
     background-color: #797979;
     display: inline-block;
+}
+
+.ava_img_def{
+    position: absolute;
+    max-width: 60%;
+    left: 20%;
+    top: 20%;
+}
+
+.ava_img{
+    position: absolute;
+    max-width: 100%;
 }
 
 .delete_ended{
     position: absolute;
     color: black;
-    top: calc(15vh + 20vw);
-    right: calc(4vw + 10vh);
+    top: 45vh;
+    right: 8vw;
+    font-size: 20px;
 }
 
 .switch
@@ -45,8 +58,8 @@ appearance: none;
 border: node;
 cursor: pointer;
 position: absolute;
-top: calc(15vh + 20.5vw);
-right: calc(10vw - 10vh);
+top: 46vh;
+right: 5vw;
 border-radius: 0.25vw;
 -moz-border-radius:16px;
 -webkit-border-radius:16px;
@@ -91,30 +104,78 @@ background: #D9D9D9 !important;
 left: 1vw !important;
 }
 
+
+.naming_div{
+    max-height: 10vh;
+}
+
+.tg_span{
+    position: absolute;
+    background-color: #A5A5A5;
+    top: 12vh;
+    right: 50vw;
+    height: 3vh;
+    width: 3vh;
+    border-radius: 1.5vh;
+    display: inline-block;
+    text-align: center;
+}
+
+.tg_btn{
+    top: 0.1vh;
+    position: relative;
+}
+
 .naming{
     position: absolute;
     color: black;
-    top: calc(10vh + 10vw - 50px);
+    top: 10vh;
     left: 8vw;
+    font-size: 5vh;
+    max-width: 50vw;
 }
 
 .bio{
     position: absolute;
     color: #797979;
     left: 8vw;
-    top: calc(15vh + 10vw - 50px);
+    top: 17vh;
+    font-size: 2vw;
+    max-width: 45vw;
+    max-height: 10vh;
+}
+
+.edit{
+    position: absolute;
+    display: inline-block;
+    width: 3vh;
+    height: 3vh;
+    border-radius: 1.5vh;
+    border-style: none;
+    left: 8vw;
+    top: 26vh;
+    background-color: #A5A5A5;
+}
+
+.edit_btn{
+    position: absolute;
+    color: white;
+    left: 0.55vh;
+    top: 0.6vh;
 }
 
 .awards{
     position: absolute;
     color: black;
-    top: calc(25vh + 10vw - 50px);
+    max-width: 45vw;
+    top: 30vh;
     left: 8vw;
+    font-size: 2vw;
 }
 
 .events{
     position: absolute;
-    top: calc(15vh + 20vw);
+    top: 44vh;
     left: 8vw;
     color: black;
 }
@@ -133,5 +194,5 @@ left: 1vw !important;
 
 .events_divs{
     position: absolute;
-    top: calc(24vh + 20vw);
+    top: 51vh;
 }

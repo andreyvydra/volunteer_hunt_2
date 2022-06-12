@@ -11,7 +11,13 @@
 {% endblock %}
 
 {% block main %}
-<span class="avatar"><img src="user.avatar"></span>
+<span class="avatar">
+    {% if user.avatar %}
+    <img src="user.avatar" class="ava_img">
+    {% else %}
+    <img src="{% static 'img/profile/default_ava.png' %}" class="ava_img_def">
+    {% endif %}
+</span>
 <h4 class="delete_ended">убрать прошедшие</h4>
 <label>
     <input type="checkbox" name="checkboxName" class="checkbox"/>
@@ -28,12 +34,18 @@ $(this).toggleClass("switchOn");
 });
 
 });
+
 </script>
-<h1 class="naming">{{ user.username }}</h1>
+<div class="naming_div">
+    <h1 class="naming">None</h1>
+    <span class="tg_span">
+        <i class="bx bxl-telegram tg_btn bx-xs"></i>
+    </span>
+</div>
 <h4 class="bio">{{user.email}} {{user.first_name}} {{user.last_name}}</h4>
-<h3 class="awards">Мы крутые!</h3>
+<h3 class="awards">Уже проведено {} Эвента, Наиболее популярная категория {}</h3>
 <h1 class="events">Эвенты</h1>
-<!--<button class="write"><img></button>-->
+<button class="edit"><i class="bx bxs-pencil edit_btn bx-xs"></i></button>
 {% if active_tasks %}
 <h4>Мои работы:</h4>
 {% else %}
