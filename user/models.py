@@ -10,11 +10,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
 
-    username = models.CharField(unique=True, max_length=64, null=True)
     email = models.EmailField(verbose_name='email address', unique=True)
     first_name = models.CharField(verbose_name='Имя', max_length=64, blank=True)
     last_name = models.CharField(verbose_name='Фамилия', max_length=64, blank=True)
-    avatar = models.ImageField(verbose_name='Аватар', upload_to='users/avatars/')
+    avatar = models.ImageField(verbose_name='Аватар', upload_to='static/users/avatars/')
     telegram_id = models.CharField(verbose_name="ID Телеграма", unique=True, max_length=50)
     telegram_chat_id = models.PositiveIntegerField(verbose_name="ID Телеграм Чата", null=True)
 
@@ -53,9 +52,11 @@ class Employer(models.Model):
         to=User,
         on_delete=models.CASCADE,
     )
-    link = models.CharField(verbose_name='Ссылка на проект или на фонд',
-                            max_length=128,
-                            null=True)
+    link = models.URLField(
+        verbose_name='Ссылка на проект или на фонд',
+        max_length=128,
+        null=True
+    )
 
     class Meta:
         verbose_name = "Работодатель"

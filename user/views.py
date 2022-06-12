@@ -23,12 +23,12 @@ class ProfileView(View):
         }
         try:
             volunteer = Volunteer.objects.get(user=user)
-            context['active_tasks'] = volunteer.task.filter(datetime__gte=timezone.now())
-            context['not_active_tasks'] = volunteer.task.filter(datetime__lt=timezone.now())
+            context['active_tasks'] = volunteer.task.filter(datetime__gte=timezone.now()).prefetch_related('category')
+            context['not_active_tasks'] = volunteer.task.filter(datetime__lt=timezone.now()).prefetch_related('category')
         except Volunteer.DoesNotExist:
             employer = Employer.objects.get(user=user)
-            context['active_tasks'] = employer.my_tasks.filter(datetime__gte=timezone.now())
-            context['not_active_tasks'] = employer.my_tasks.filter(datetime__lt=timezone.now())
+            context['active_tasks'] = employer.my_tasks.filter(datetime__gte=timezone.now()).prefetch_related('category')
+            context['not_active_tasks'] = employer.my_tasks.filter(datetime__lt=timezone.now()).prefetch_related('category')
         return render(request, self.template_name, context)
 
 

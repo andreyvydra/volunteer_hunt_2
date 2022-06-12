@@ -32,7 +32,7 @@ class Command(BaseCommand):
         users = User.objects.all()
         for user in users:
             volunteer = Volunteer.objects.filter(user_id=user.id)
-            output_msg = f"Добрый день, {user.username}!\n" \
+            output_msg = f"Добрый день, {user}!\n" \
                          f"Сегодня у вас следующие события: \n\n"
             was_sended_first_message = False
 

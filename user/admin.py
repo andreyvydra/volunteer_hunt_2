@@ -7,7 +7,7 @@ from user.models import User, Volunteer, Employer
 class MyUserAdmin(UserAdmin):
     fieldsets = (
         ('Конфиденциальная информация', {'fields': ('email', 'password')}),
-        ('Персональная информация', {'fields': ('first_name', 'last_name', 'username', 'telegram_id', 'avatar')}),
+        ('Персональная информация', {'fields': ('first_name', 'last_name', 'telegram_id', 'avatar')}),
         ('Разрешения', {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'user_permissions'),
         }),
