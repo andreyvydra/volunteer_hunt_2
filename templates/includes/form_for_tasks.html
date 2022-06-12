@@ -30,20 +30,21 @@
                         Удалить последнее фото
                     </button>
                     {% for photo in task.photos.all %}
-                        <div class="input-group mb-3 mt-2" name="photo-input">
+                        <div class="input-group mb-3 mt-2">
+                            <input type="hidden" name="last-photo{{ forloop.counter }}" value="{{ photo.photo }}">
                             <input
                                     class="form-control"
                                     type="text"
-                                    name="photo-text1"
+                                    name="photo-text{{ forloop.counter }}"
                                     placeholder="Напишите название фото"
                                     value="{{ photo.description }}"
                             >
                             <input
                                     class="form-control"
                                     type="file"
-                                    name="photo1"
+                                    name="photo{{ forloop.counter }}"
                                     accept="image/*"
-                                    value="127.0.0.1:8000/{{ photo.photo }}"
+                                    placeholder="{{ forloop.counter }}"
                             >
                         </div>
                     {% endfor %}
