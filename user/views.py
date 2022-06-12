@@ -29,6 +29,28 @@ class ProfileView(View):
             employer = Employer.objects.get(user=user)
             context['active_tasks'] = employer.my_tasks.filter(datetime__gte=timezone.now()).prefetch_related('category')
             context['not_active_tasks'] = employer.my_tasks.filter(datetime__lt=timezone.now()).prefetch_related('category')
+        context['count_not_active_tasks'] = len(context['not_active_tasks'])
+        categories = dict()
+
+        fmax, key = float('-inf'), None
+        for i in context['active_tasks']:
+            if i.category not in categories:
+                categories[i.category] = 0
+            categories[i.category] += 1
+            if categories[i.category] > fmax:
+                fmax = categories[i.category]
+                key = i.category
+
+        for i in context['not_active_tasks']:
+            if i.category not in categories:
+                categories[i.category] = 0
+            categories[i.category] += 1
+            if categories[i.category] > fmax:
+                fmax = categories[i.category]
+                key = i.category
+
+        context['most_popular'] = key
+
         return render(request, self.template_name, context)
 
 

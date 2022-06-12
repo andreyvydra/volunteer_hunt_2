@@ -45,7 +45,8 @@
         </span>
     </div>
     <h4 class="bio">{{ user.email }} </h4>
-    <h3 class="awards">Уже проведено {} Эвента, Наиболее популярная категория {}</h3>
+    <h3 class="awards">Уже проведено {{ count_not_active_tasks }} Эвента,
+        Наиболее популярная категория {{ most_popular }}</h3>
     <h1 class="events">Эвенты</h1>
     <button class="edit"><i class="bx bxs-pencil edit_btn bx-xs"></i></button>
     <div class="events_divs">
