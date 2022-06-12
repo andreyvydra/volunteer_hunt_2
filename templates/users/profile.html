@@ -49,7 +49,10 @@
         Наиболее популярная категория {{ most_popular }}</h3>
     <h1 class="events">Эвенты</h1>
     <button class="edit"><i class="bx bxs-pencil edit_btn bx-xs"></i></button>
-    <div class="events_divs">
+    {% if not active_tasks %}
+<h4 style="position: absolute; text-align: center; top: 55vh; color: black">Работ нет</h4>
+{% endif %}
+<div class="events_divs">
         {% for task in active_tasks %}
             <div class="event">
                 <line class="line"></line>

@@ -14,6 +14,7 @@ body{
     left: -100vw;
     transform: rotate(-113deg);
     display: inline-block;
+    z-index: -1;
 }
 
 .very_grey_rect{
@@ -24,6 +25,7 @@ body{
     top: 40vh;
     transform: rotate(167deg);
     display: inline-block;
+    z-index: -1;
 }
 
 .greeting{
@@ -31,9 +33,10 @@ body{
     color: black;
     left: 4vw;
     max-width: 30vw;
-    margin-top: 5%;
+    margin-top: 90px;
     margin-bottom: 0%;
-    font-size: 3.7vw;
+    font-size: 3vw;
+    max-width: 30vw;
 }
 
 .greeting_red{
@@ -45,8 +48,9 @@ body{
     color: black;
     left: 4vw;
     max-width: 30vw;
-    font-size: 2.7vw;
+    font-size: 3vw;
     margin-top: 0%;
+    max-width: 30vw;
 }
 
 .number_text_red{
@@ -58,21 +62,49 @@ body{
 }
 
 .fact{
-    position: absolute;
     color: black;
-    font-size: 2vw;
-}
-
-.we_are{
-    top: 70%;
-    right: 5vw;
-    z-index: 1;
+    font-size: 100%;
 }
 
 .its_funny{
-    top: 85%;
+    position: absolute;
+    top: 3vh;
     left: 5vw;
+    width: 30vw;
     z-index: 1;
+    float; left;
+}
+
+.fact1{
+    position: absolute;
+    top: 65vh;
+    right: 60vw;
+    width: auto;
+    height: auto;
+}
+
+.we_are{
+    position: absolute;
+    left: 10vw;
+    top: 3vh;
+    width: 40vw;
+    z-index: 1;
+    right: 5vw;
+    float: right;
+}
+
+.drying{
+     position: absolute;
+     width: 7vw;
+     height: 7vw;
+}
+
+.fact2{
+    position: absolute;
+    top: 80vh;
+    left: 10vw;
+    width: auto;
+    height: auto;
 }
 
 .hello{
@@ -83,20 +115,11 @@ body{
     margin-top: 0%;
 }
 
-.drying{
-     position: absolute;
-     width: 10vh;
-     height: 10vh;
-     top: 65%;
-     right: 52vw;
-}
-
 .five{
     position: absolute;
-    width: 10vh;
-    height: 10vh;
-    top: 80%;
-    left: 65vw;
+    width: 7vw;
+    height: 7vw;
+    left: 35vw;
 }
 
 .very_grey_rect_repeat{
@@ -106,4 +129,58 @@ body{
     height: 1443px;
     top: 100%;
     display: inline-block;
+    z-index: -1;
+}
+
+.main_info_block{
+    position: absolute;
+    z-index: 1;
+    top: 100vh;
+}
+
+.divinding_line{
+    position: relative;
+    top: 0vh;
+    display: inline-block;
+    background-color: black;
+    height: 2px;
+    width: 100vw;
+}
+
+.info_header{
+    color: black;
+    font-size: 40px;
+    text-align: center;
+    width: 100vw;
+}
+
+.about_field{
+    color: #666666;
+    margin-left: 20vw;
+    max-width: 60vw;
+    font-size; 2vw;
+    text-align: left;
+}
+
+.about_header{
+    position: relative;
+    left: 22vw;
+    color: black;
+    font-size: 30px;
+}
+
+.line{
+    display: inline-block;
+    background-color: black;
+    height: 2px;
+    width: 100vw;
+}
+
+.award_text{
+    position: relative;
+    width: 100vw;
+    max-width: 60vw;
+    color: black;
+    font-size: 15px;
+    left: 30vw;
 }
