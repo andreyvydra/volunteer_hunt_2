@@ -9,7 +9,7 @@ from tasks.models import Task
 from user.models import Employer
 
 
-class MapView(LoginRequiredMixin, View):
+class MapView(View):
     template_name = "map/map.html"
 
     def get(self, request):
