@@ -35,7 +35,7 @@
     <div class="events_divs">
     {% for task in active_tasks %}
         <div class="event">
-            <line class="line"></line>
+                <line class="line"></line>
                 <h2 class="event_name">{{ task.name }}</h2>
                 <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
             <h4 class="category">Уборка</h4>
@@ -44,13 +44,12 @@
     {% endfor %}
 
     {% for task in not_active_tasks %}
-        <div class="event_ended event">
+        <div class="event ended_event">
             <line class="line"></line>
-                <h2 class="event_name">{{ task.name }}</h2>
-                <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
+            <h2 class="event_name">{{ task.name }}</h2>
+            <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
             <h4 class="category">Уборка</h4>
-                <h2 class="date">{{ task.datetime }}</h2>
-            <span class="ended_event"></span>
+            <h2 class="date">{{ task.datetime }}</h2>
         </div>
     {% endfor %}
     </div>
