@@ -11,6 +11,17 @@
 {% endblock %}
 
 {% block main %}
+    <span class="avatar"><img src="{{user.avatar}}"></span>
+    <button id="delete_ended" class="delete_ended">убрать прошедшие</button>
+    <script type="text/javascript" src="http://yastatic.net/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#delete_ended').on("click", function(){
+                $('#event_ended').toggle();
+            });
+        });
+    </script>
+<!--    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">-->
     <span class="avatar"><img src="{{ user.avatar }}"></span>
     <h4 class="delete_ended">убрать прошедшие</h4>
     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
@@ -31,6 +42,7 @@
                 <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
             <h4 class="category">Уборка</h4>
                 <h2 class="date">{{ task.datetime }}</h2>
+                <button class="go">записаться</button>
         </div>
     {% endfor %}
 
@@ -41,7 +53,7 @@
                 <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
             <h4 class="category">Уборка</h4>
                 <h2 class="date">{{ task.datetime }}</h2>
-
+            <span class="ended_event"></span>
         </div>
     {% endfor %}
     </div>

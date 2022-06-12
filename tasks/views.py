@@ -14,7 +14,7 @@ from tasks.models import Task
 from user.models import Employer, Volunteer, User
 
 
-class TaskView(LoginRequiredMixin, View):
+class TaskView(View):
     template_name = 'task/index.html'
     success_url = reverse_lazy('map')
 

@@ -9,8 +9,8 @@
 </div>
 <div class="btn-group">
     {% if not request.user.is_authenticated %}
-        <a href="{% url 'login' %}"><button class="reg_btn_left">Sing In</button></a>
-        <a href="{% url 'signup' %}"><button class="reg_btn_right">Sing Up</button></a>
+        <a href="{% url 'login' %}"><button class="reg_btn_left">Sign In</button></a>
+        <a href="{% url 'signup' %}"><button class="reg_btn_right">Sign Up</button></a>
     {% endif %}
 </div>
 </span>
