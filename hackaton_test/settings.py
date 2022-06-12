@@ -13,7 +13,9 @@ MAPBOX_ACCESS_TOKEN = os.getenv('MAPBOX_ACCESS_TOKEN')
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "0.0.0.0"
+]
 
 INTERNAL_IPS = [
     "127.0.0.1",
