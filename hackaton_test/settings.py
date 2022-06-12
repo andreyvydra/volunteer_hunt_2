@@ -116,3 +116,7 @@ LOGIN_REDIRECT_URL = '/map/'
 LOGOUT_REDIRECT_URL = '/auth/login/'
 
 DATE_INPUT_FORMATS = ['%Y-%m-%dT%H:%M:%S', ]
+
+# Настройки бота
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+
