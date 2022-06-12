@@ -92,7 +92,6 @@ class UpdateTaskView(LoginRequiredMixin, UpdateView):
         )
         print(task)
         counter = 1
-        photos = []
         while True:
             if f'photo-text{counter}' in request.POST:
                 if f'photo{counter}' in request.FILES:
@@ -105,11 +104,10 @@ class UpdateTaskView(LoginRequiredMixin, UpdateView):
                     photo = Photo.objects.get(photo=request.POST[f'last-photo{counter}'])
                     photo.description = request.POST[f'photo-text{counter}']
                     photo.save()
-                photos.append(photo)
+                task.photos.add(photo)
                 counter += 1
             else:
                 break
-        task.photos.set(photos)
         return redirect(self.success_url)
 
 
@@ -143,7 +141,6 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
             )
             task.save()
             counter = 1
-            photos = []
             while True:
                 if f'photo-text{counter}' in request.POST:
                     photo = Photo.objects.create(
@@ -151,10 +148,9 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
                         photo=request.FILES[f'photo{counter}']
                     )
                     photo.save()
-                    photos.append(photo)
+                    task.photos.add(photo)
                     counter += 1
                 else:
                     break
-            task.photos_set.set(photos)
             return render(request, 'task/successful_create_task.html', context={"task_id": task.id})
         return redirect(reverse_lazy('map'))
