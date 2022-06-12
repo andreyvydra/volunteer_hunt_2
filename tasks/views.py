@@ -29,6 +29,7 @@ class TaskView(View):
             'is_volunteer': bool(volunteer),
             'is_active_task': task.datetime >= timezone.now(),
             'belongs_to_user': task.creator.user_id == request.user.id,
+            'photos': task.photos.all()
         }
 
         volunteers_values_list = task.volunteers.values_list('user_id', flat=True).all()

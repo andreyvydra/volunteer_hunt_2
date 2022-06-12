@@ -9,13 +9,40 @@
         <h2>{{ task.name }}</h2>
         <p>Описание: {{ task.description }}</p>
         <p>Время начала: {{ task.datetime }}</p>
-        <p>Категория: <span style="color: {{task.category.color}}">{{ task.category.name }}</span></p>
+        <p>Категория: <span style="color: {{ task.category.color }}">{{ task.category.name }}</span></p>
         <p>Требуемое кол-во волонтёров: {{ task.max_volunteer }}</p>
         {% if volunteers_number > 0 %}
-        <p>На задаче уже <strong>{{ volunteers_number }} </strong>волонтёр(а)!</p>
+            <p>На задаче уже <strong>{{ volunteers_number }} </strong>волонтёр(а)!</p>
         {% endif %}
+        {% if photos %}
+            <div id="carouselBasicExample" class="carousel slide carousel-fade" data-mdb-ride="carousel">
+                <div class="carousel-inner">
+                    {% for photo in photos %}
+                        <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
+                            <img src="/{{ photo.photo }}" class="d-block w-100" alt="{{ photo.description }}"/>
+                            <div class="carousel-caption d-none d-md-block">
+                                <p>{{ photo.description }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- Inner -->
+
+                <!-- Controls -->
+                <button class="carousel-control-prev" type="button" data-mdb-target="#carouselBasicExample"
+                        data-mdb-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-mdb-target="#carouselBasicExample"
+                        data-mdb-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        {% endif %}
+    <div id="map" style="height: 400px;" class="mt-2"></div>
     </div>
-    <div id="map" style="height: 400px;"></div>
     {% if is_active_task %}
         {% if is_employer and belongs_to_user %}
             <form method="POST">
@@ -44,8 +71,8 @@
 
 {% block js %}
     <script type="text/javascript">
-    var center = [{{task_lon}}, {{task_lat}}]
-    mapboxgl.accessToken = "{{ MAPBOX_ACCESS_TOKEN }}";
+        var center = [{{task_lon}}, {{task_lat}}]
+        mapboxgl.accessToken = "{{ MAPBOX_ACCESS_TOKEN }}";
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v11',
@@ -53,11 +80,11 @@
             zoom: 11
         });
 
-    var marker = new mapboxgl.Marker({
-        color: "{{ task.category.color }}"
-    }).setLngLat(center)
-        .setPopup(new mapboxgl.Popup().setHTML("<a href='{% url 'task_view' task.id %}'>{{ task.name }}</a>"))
-        .addTo(map);
+        var marker = new mapboxgl.Marker({
+            color: "{{ task.category.color }}"
+        }).setLngLat(center)
+            .setPopup(new mapboxgl.Popup().setHTML("<a href='{% url 'task_view' task.id %}'>{{ task.name }}</a>"))
+            .addTo(map);
 
     </script>
 {% endblock %}
