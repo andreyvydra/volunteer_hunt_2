@@ -37,6 +37,7 @@ class TaskView(LoginRequiredMixin, View):
             context['volunteer_not_enough'] = True
 
         context['MAPBOX_ACCESS_TOKEN'] = MAPBOX_ACCESS_TOKEN
+        context['task_lon'], context['task_lat'] = task.point_on_map.split()
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
