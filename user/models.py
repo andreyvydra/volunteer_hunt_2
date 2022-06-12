@@ -15,7 +15,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(verbose_name='Имя', max_length=64, blank=True)
     last_name = models.CharField(verbose_name='Фамилия', max_length=64, blank=True)
     avatar = models.ImageField(verbose_name='Аватар', upload_to='users/avatars/')
-    telegram_id = models.CharField(verbose_name="ID Телеграма", unique=True, max_length=50)
+    telegram_id = models.CharField(verbose_name="Username Телеграма (без @)",
+                                   unique=True, max_length=50)
     telegram_chat_id = models.PositiveIntegerField(verbose_name="ID Телеграм Чата", null=True)
 
     is_staff = models.BooleanField(default=False)
