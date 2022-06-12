@@ -29,7 +29,27 @@
                     <button class="btn btn-danger" type="button" onclick="del_photo()">
                         Удалить последнее фото
                     </button>
+                    {% for photo in task.photos.all %}
+                        <div class="input-group mb-3 mt-2">
+                            <input type="hidden" name="last-photo{{ forloop.counter }}" value="{{ photo.photo }}">
+                            <input
+                                    class="form-control"
+                                    type="text"
+                                    name="photo-text{{ forloop.counter }}"
+                                    placeholder="Напишите название фото"
+                                    value="{{ photo.description }}"
+                            >
+                            <input
+                                    class="form-control"
+                                    type="file"
+                                    name="photo{{ forloop.counter }}"
+                                    accept="image/*"
+                                    placeholder="{{ forloop.counter }}"
+                            >
+                        </div>
+                    {% endfor %}
                 </div>
+
                 <div id="map" style="height: 350px;"></div>
                 {% block buttons %}
                     <button type="submit" class="btn btn-primary">Отправить</button>
@@ -99,37 +119,37 @@
             }
 
             const geocoder = new MapboxGeocoder({
-            accessToken: mapboxgl.accessToken,
-            mapboxgl: mapboxgl,
-            marker: false,
-            placeholder: 'Поиск',
-        });
+                accessToken: mapboxgl.accessToken,
+                mapboxgl: mapboxgl,
+                marker: false,
+                placeholder: 'Поиск',
+            });
 
-        map.addControl(geocoder);
+            map.addControl(geocoder);
 
-        map.on('load', () => {
-            map.addSource('single-point', {
-            'type': 'geojson',
-            'data': {
-                'type': 'FeatureCollection',
-                'features': []
-        }
-        });
+            map.on('load', () => {
+                map.addSource('single-point', {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'FeatureCollection',
+                        'features': []
+                    }
+                });
 
-        map.addLayer({
-            'id': 'point',
-            'source': 'single-point',
-            'type': 'circle',
-            'paint': {
-                'circle-radius': 10,
-                'circle-color': '#448ee4'
-            }
-        });
+                map.addLayer({
+                    'id': 'point',
+                    'source': 'single-point',
+                    'type': 'circle',
+                    'paint': {
+                        'circle-radius': 10,
+                        'circle-color': '#448ee4'
+                    }
+                });
 
-        geocoder.on('result', (event) => {
-            map.getSource('single-point').setData(event.result.geometry);
-        });
-    });
+                geocoder.on('result', (event) => {
+                    map.getSource('single-point').setData(event.result.geometry);
+                });
+            });
 
             function error(err) {
             }

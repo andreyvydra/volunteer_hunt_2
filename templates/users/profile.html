@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Профиль
+    Профиль
 {% endblock %}
 
 {% block css %}
@@ -11,68 +11,62 @@
 {% endblock %}
 
 {% block main %}
-<span class="avatar">
+    <span class="avatar">
     {% if user.avatar %}
-    <img src="user.avatar" class="ava_img">
+        <img src="/{{ user.avatar }}" class="ava_img">
     {% else %}
-    <img src="{% static 'img/profile/default_ava.png' %}" class="ava_img_def">
+        <img src="{% static 'img/profile/default_ava.png' %}" class="ava_img_def">
     {% endif %}
 </span>
-<h4 class="delete_ended">убрать прошедшие</h4>
-<label>
-    <input type="checkbox" name="checkboxName" class="checkbox"/>
-    <div class="switch"></div>
-</label>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script>
-$(document).ready(function()
-{
-$( ".switch" ).click(function(){
-                $( ".ended_event" ).toggle();
-                });
+    <h4 class="delete_ended">убрать прошедшие</h4>
+    <label>
+        <div class="switch"></div>
+    </label>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".switch").click(function () {
+                $(".ended_event").toggle();
+            });
 
-$('.switch').click(function()
-{
-$(this).toggleClass("switchOn");
-});
+            $('.switch').click(function () {
+                $(this).toggleClass("switchOn");
+            });
 
-});
+        });
 
-</script>
-<div class="naming_div">
-    <h1 class="naming">None</h1>
-    <span class="tg_span">
-        <a href="https://t.me/volunteer_hunt_2_bot"><i class="bx bxl-telegram tg_btn bx-xs"></i></a>
-    </span>
-</div>
-<h4 class="bio">{{user.email}} {{user.first_name}} {{user.last_name}}</h4>
-<h3 class="awards">Уже проведено {} Эвента, Наиболее популярная категория {}</h3>
-<h1 class="events">Эвенты</h1>
-<button class="edit"><i class="bx bxs-pencil edit_btn bx-xs"></i></button>
-{% if active_tasks %}
-<h4>Мои работы:</h4>
-{% else %}
-<h4>Работ нет</h4>
-{% endif %}
+    </script>
+    <div class="naming_div">
+        <h1 class="naming">{{ user }}</h1>
+        <span class="tg_span">
+        <a href="https://t.me/volunteer_hunt_2_bot">
+            <i class="bx bxl-telegram tg_btn bx-xs"></i>
+        </a>
+        </span>
+    </div>
+    <h4 class="bio">{{ user.email }} </h4>
+    <h3 class="awards">Уже проведено {} Эвента, Наиболее популярная категория {}</h3>
+    <h1 class="events">Эвенты</h1>
+    <button class="edit"><i class="bx bxs-pencil edit_btn bx-xs"></i></button>
     <div class="events_divs">
-    {% for task in active_tasks %}
-        <div class="event">
+        {% for task in active_tasks %}
+            <div class="event">
                 <line class="line"></line>
                 <h2 class="event_name">{{ task.name }}</h2>
                 <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
-            <h4 class="category">{{ task.category.name }}</h4>
+                <h4 class="category">{{ task.category }}</h4>
                 <h2 class="date">{{ task.datetime }}</h2>
-        </div>
-    {% endfor %}
+            </div>
+        {% endfor %}
 
-    {% for task in not_active_tasks %}
-        <div class="event ended_event">
-            <line class="line"></line>
-            <h2 class="event_name">{{ task.name }}</h2>
-            <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
-            <h4 class="category">Уборка</h4>
-            <h2 class="date">{{ task.datetime }}</h2>
-        </div>
-    {% endfor %}
+        {% for task in not_active_tasks %}
+            <div class="event ended_event">
+                <line class="line"></line>
+                <h2 class="event_name">{{ task.name }}</h2>
+                <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
+                <h4 class="category">{{ task.category }}</h4>
+                <h2 class="date">{{ task.datetime }}</h2>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

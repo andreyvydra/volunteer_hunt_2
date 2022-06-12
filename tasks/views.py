@@ -95,11 +95,16 @@ class UpdateTaskView(LoginRequiredMixin, UpdateView):
         photos = []
         while True:
             if f'photo-text{counter}' in request.POST:
-                photo = Photo.objects.create(
-                    description=request.POST[f'photo-text{counter}'],
-                    photo=request.FILES[f'photo{counter}']
-                )
-                photo.save()
+                if f'photo{counter}' in request.FILES:
+                    photo = Photo.objects.create(
+                        description=request.POST[f'photo-text{counter}'],
+                        photo=request.FILES[f'photo{counter}']
+                    )
+                    photo.save()
+                else:
+                    photo = Photo.objects.get(photo=request.POST[f'last-photo{counter}'])
+                    photo.description = request.POST[f'photo-text{counter}']
+                    photo.save()
                 photos.append(photo)
                 counter += 1
             else:
