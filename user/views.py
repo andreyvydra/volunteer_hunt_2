@@ -3,6 +3,7 @@ import datetime
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views import View
 
 from user.models import User, Volunteer, Employer
@@ -22,12 +23,12 @@ class ProfileView(View):
         }
         try:
             volunteer = Volunteer.objects.get(user=user)
-            context['active_tasks'] = volunteer.task.filter(datetime__gte=datetime.datetime.now())
-            context['not_active_tasks'] = volunteer.task.filter(datetime__lt=datetime.datetime.now())
+            context['active_tasks'] = volunteer.task.filter(datetime__gte=timezone.now())
+            context['not_active_tasks'] = volunteer.task.filter(datetime__lt=timezone.now())
         except Volunteer.DoesNotExist:
             employer = Employer.objects.get(user=user)
-            context['active_tasks'] = employer.my_tasks.filter(datetime__gte=datetime.datetime.now())
-            context['not_active_tasks'] = employer.my_tasks.filter(datetime__lt=datetime.datetime.now())
+            context['active_tasks'] = employer.my_tasks.filter(datetime__gte=timezone.now())
+            context['not_active_tasks'] = employer.my_tasks.filter(datetime__lt=timezone.now())
         return render(request, self.template_name, context)
 
 

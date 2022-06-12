@@ -2,6 +2,7 @@ import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.utils import timezone
 from django.views import View
 
 from hackaton_test.settings import MAPBOX_ACCESS_TOKEN
@@ -17,7 +18,7 @@ class MapView(LoginRequiredMixin, View):
         context["MAPBOX_ACCESS_TOKEN"] = MAPBOX_ACCESS_TOKEN
         employer = Employer.objects.filter(user_id=request.user.id)
         tasks = Task.objects.get_tasks_from_context(request.GET)\
-            .filter(datetime__gte=datetime.datetime.now())\
+            .filter(datetime__gte=timezone.now())\
             .prefetch_related("category").only(
             "point_on_map", "category", "name", "id"
         )
