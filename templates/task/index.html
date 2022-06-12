@@ -1,7 +1,7 @@
 {% extends 'includes/index.html' %}
 
 {% block title %}
-    Вход
+    Задача
 {% endblock %}
 
 {% block main %}
@@ -15,6 +15,7 @@
         <p>На задаче уже <strong>{{ volunteers_number }} </strong>волонтёр(а)!</p>
         {% endif %}
     </div>
+    <div id="map" style="height: 400px;"></div>
     {% if is_active_task %}
         {% if is_employer and belongs_to_user %}
             <form method="POST">
@@ -41,3 +42,22 @@
 
 {% endblock %}
 
+{% block js %}
+    <script type="text/javascript">
+    var center = [{{task_lon}}, {{task_lat}}]
+    mapboxgl.accessToken = "{{ MAPBOX_ACCESS_TOKEN }}";
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: center,
+            zoom: 11
+        });
+
+    var marker = new mapboxgl.Marker({
+        color: "{{ task.category.color }}"
+    }).setLngLat(center)
+        .setPopup(new mapboxgl.Popup().setHTML("<a href='{% url 'task_view' task.id %}'>{{ task.name }}</a>"))
+        .addTo(map);
+
+    </script>
+{% endblock %}

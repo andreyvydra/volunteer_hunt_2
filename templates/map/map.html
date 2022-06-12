@@ -9,11 +9,12 @@
 
 {% block js %}
     <script type="text/javascript">
-        mapboxgl.accessToken = "{{ MAPBOX_ACCESS_TOKEN }}";
+var center = [37.6562, 55.7753]
+    mapboxgl.accessToken = "{{ MAPBOX_ACCESS_TOKEN }}";
         const map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [37.6562, 55.7753],
+            center: center,
             zoom: 10
         });
         {% for task in tasks %}
@@ -24,5 +25,20 @@
                 .addTo(map);
         {% endfor %}
 
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        }
+
+        function error(err) {}
+
+        function success(pos) {
+          const crd = pos.coords;
+          center = [crd.longitude, crd.latitude]
+          map.setCenter(center)
+        }
+
+        navigator.geolocation.getCurrentPosition(success, error, options);
     </script>
 {% endblock %}
