@@ -98,6 +98,39 @@
                 maximumAge: 0
             }
 
+            const geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            mapboxgl: mapboxgl,
+            marker: false,
+            placeholder: 'Поиск',
+        });
+
+        map.addControl(geocoder);
+
+        map.on('load', () => {
+            map.addSource('single-point', {
+            'type': 'geojson',
+            'data': {
+                'type': 'FeatureCollection',
+                'features': []
+        }
+        });
+
+        map.addLayer({
+            'id': 'point',
+            'source': 'single-point',
+            'type': 'circle',
+            'paint': {
+                'circle-radius': 10,
+                'circle-color': '#448ee4'
+            }
+        });
+
+        geocoder.on('result', (event) => {
+            map.getSource('single-point').setData(event.result.geometry);
+        });
+    });
+
             function error(err) {
             }
 
