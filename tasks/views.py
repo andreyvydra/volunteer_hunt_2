@@ -30,8 +30,6 @@ class TaskView(View):
             'is_active_task': task.datetime >= timezone.now(),
             'belongs_to_user': task.creator.user_id == request.user.id,
         }
-        print(task.datetime)
-        print(timezone.now())
         volunteers_values_list = task.volunteers.values_list('user_id', flat=True).all()
         context['volunteers_number'] = len(volunteers_values_list)
         if request.user.id in volunteers_values_list:
@@ -41,7 +39,6 @@ class TaskView(View):
         context['MAPBOX_ACCESS_TOKEN'] = MAPBOX_ACCESS_TOKEN
         context['task_lon'], context['task_lat'] = task.point_on_map.split()
         context['task'].datetime = context['task'].datetime.astimezone().replace(tzinfo=None)
-        print(context['task'].datetime.astimezone().replace(tzinfo=None))
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
