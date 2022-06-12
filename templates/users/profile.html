@@ -1,49 +1,50 @@
 {% extends 'includes/index.html' %}
+{% load static %}
+
+{% block title %}
+Профиль
+{% endblock %}
+
+{% block css %}
+    <link href="{% static 'css/events.css' %}" rel="stylesheet">
+    <link href="{% static 'css/label_page.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block main %}
-    <div class="container">
-        <h1>{{ user.username }}</h1>
-        <h2>{{ user.first_name }} {{ user.last_name }}</h2>
-        <h4>{{ user.email }} </h4>
-        {% if active_tasks %}
-            <h4>Мои работы:</h4>
-        {% else %}
-            <h4>Работ нет</h4>
-        {% endif %}
-        <mdb-list-group>
-            {% for task in active_tasks %}
-            <a href="{% url 'task_view' task.id %}">
-            <mdb-list-group-item>
-              <div>
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-2 h5">{{ task.name }}</h5>
-                  <small>{{task.datetime}}</small>
-                </div>
-                <p class="mb-2">
-                  {{task.description}}
-                </p>
-              </div>
-            </mdb-list-group-item>
-            </a>
-            {% endfor %}
-        </mdb-list-group>
-        <div style="background-color: #aaaaaa;">
-        <mdb-list-group>
-            {% for task in not_active_tasks %}
-                <a href="{% url 'task_view' task.id %}">
-                <mdb-list-group-item>
-                  <div>
-                    <div class="d-flex w-100 justify-content-between">
-                      <h5 class="mb-2 h5">{{ task.name }}</h5>
-                      <small>{{task.datetime}}</small>
-                    </div>
-                    <p class="mb-2">
-                      {{task.description}}
-                    </p>
-                  </div>
-                </mdb-list-group-item>
-                </a>
-            {% endfor %}
-        </mdb-list-group>
+    <span class="avatar"><img src="user.avatar"></span>
+    <h4 class="delete_ended">убрать прошедшие</h4>
+    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+    <h1 class="naming">{{ user.username }}</h1>
+    <h4 class="bio">{{user.email}} {{user.first_name}} {{user.last_name}}</h4>
+    <h3 class="awards">Мы крутые!</h3>
+    <h1 class="events">Эвенты</h1>
+    <!--<button class="write"><img></button>-->
+    {% if active_tasks %}
+        <h4>Мои работы:</h4>
+    {% else %}
+        <h4>Работ нет</h4>
+    {% endif %}
+    <div class="events_divs">
+    {% for task in active_tasks %}
+        <div class="event">
+            <line class="line"></line>
+                <h2 class="event_name">{{ task.name }}</h2>
+                <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
+            <h4 class="category">Уборка</h4>
+                <h2 class="date">{{ task.datetime }}</h2>
+                <button class="go">записаться</button>
         </div>
+    {% endfor %}
+
+    {% for task in not_active_tasks %}
+        <div class="event">
+            <line class="line"></line>
+                <h2 class="event_name">{{ task.name }}</h2>
+                <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
+            <h4 class="category">Уборка</h4>
+                <h2 class="date">{{ task.datetime }}</h2>
+            <span class="ended_event"></span>
+        </div>
+    {% endfor %}
     </div>
 {% endblock %}

@@ -1,0 +1,138 @@
+body{
+    color: #F5F5F5;
+}
+
+.donate{
+    position: absolute;
+    width: 15vw;
+    height: 100px;
+    top: calc(10vh + 10vw - 50px);
+    right: calc(10vh + 20vw + 50px);
+    border-radius: 50px;
+    border-style: none;
+    background-color: #01575B;
+    color: #F3F3F3;
+    display: inline-block;
+}
+
+.avatar{
+    position: absolute;
+    width: 20vw;
+    height: 20vw;
+    border-radius: 10vw;
+    top: 10vh;
+    right: 10vh;
+    background-color: #797979;
+    display: inline-block;
+}
+
+.delete_ended{
+    position: absolute;
+    color: black;
+    top: calc(15vh + 20vw);
+    right: calc(2vw + 10vh);
+}
+
+.form-check-input{
+    position: absolute;
+    background-color: #D9D9D9;
+    width: 1vw;
+    height: 1vw;
+    right: 10vh;
+    top: calc(15vh + 20vw);
+}
+
+.naming{
+    position: absolute;
+    color: black;
+    top: calc(10vh + 10vw - 50px);
+    left: 8vw;
+}
+
+.bio{
+    position: absolute;
+    color: #797979;
+    left: 8vw;
+    top: calc(15vh + 10vw - 50px);
+}
+
+.awards{
+    position: absolute;
+    color: black;
+    top: calc(25vh + 10vw - 50px);
+    left: 8vw;
+}
+
+.events{
+    position: absolute;
+    top: calc(15vh + 20vw);
+    left: 8vw;
+    color: black;
+}
+
+.write{
+    position: absolute;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    border-style: none;
+    left: 8vw;
+    top: calc(29vh + 10vw - 50px);
+    background-color: #D9D9D9;
+}
+
+.events_div{
+    position: absolute;
+    top: calc(24vh + 20vw);
+}
+
+.line{
+    position: absolute;
+    top: calc(24vh + 20vw);
+    width: 100vw;
+    height: 4px;
+    background-color: black;
+    display: inline-block;
+}
+
+.event_name{
+    position: absolute;
+    color: black;
+    left: 8vw;
+    top: calc(29vh + 20vw);
+}
+
+.show_on_map{
+    position: absolute;
+    color: #767676;
+    left: 8vw;
+    top: calc(32vh + 20vw);
+}
+
+.category{
+    position: absolute;
+    color: #767676;
+    top: calc(32vh + 20vw);
+    left: 50vw;
+}
+
+.date{
+    position: absolute;
+    color: black;
+    right: 10vh;
+    top: calc(27vh + 20vw);
+}
+
+.go{
+    position: absolute;
+    color: #F3F3F3;
+    background-color: #960000;
+    right: 10vh;
+    top: 7vw;
+    width: 7vw;
+    height: 80px;
+    border-radius: 40px;
+    border-style: none;
+    display: inline-block;
+}

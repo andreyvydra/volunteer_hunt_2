@@ -1,0 +1,89 @@
+.events_divs{
+    position: absolute;
+    top: 0%;
+}
+
+.event{
+    position: relative;
+    width: 100vw;
+    height: 10vw;
+    top: 0vw;
+}
+
+.line{
+    position: absolute;
+    top: 0.5vw;
+    width: 100vw;
+    height: 4px;
+    background-color: black;
+    display: inline-block;
+}
+
+.event_name{
+    position: absolute;
+    color: black;
+    font-size: 2vw;
+    left: 8vw;
+    top: 4vw;
+    max-width: 40vw;
+}
+
+.show_on_map{
+    position: absolute;
+    color: #767676;
+    font-size: 1vw;
+    left: 8vw;
+    top: 7vw;
+}
+
+.category{
+    position: absolute;
+    color: #767676;
+    font-size: 1vw;
+    top: 4.25vw;
+    left: 50vw;
+    max-width: calc(80vw - 10vh);
+}
+
+.date{
+    position: absolute;
+    color: black;
+    right: 10vh;
+    top: 3vw;
+    max-width: 13vw;
+    font-size: 1.25vw;
+    float: right;
+}
+
+.go{
+    position: absolute;
+    color: #F3F3F3;
+    background-color: #960000;
+    right: 10vh;
+    top: 6vw;
+    width: 8vw;
+    font-size: 0.6vw;
+    height: 1vw;
+    border-radius: 40px;
+    border-style: none;
+    float: right;
+    display: inline-block;
+}
+
+.ended_event{
+    position: absolute;
+    background-color: #A8A8A888;
+    top: calc(0.5vw + 4px);
+    width: 100vw;
+    height: 10vw;
+    display: inline-block;
+}
+.end_date{
+    position: absolute;
+    color: black;
+    right: 10vh;
+    top: 4vw;
+    max-width: 13vw;
+    font-size: 1.25vw;
+    float: right;
+}
