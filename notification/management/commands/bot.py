@@ -23,7 +23,7 @@ class Command(BaseCommand):
             token=settings.TELEGRAM_BOT_TOKEN
         )
         job_queue = updater.job_queue
-        job_queue.run_repeating(callback=self.send_notifications, interval=3600 * 12, first=1)
+        job_queue.run_repeating(callback=self.send_notifications, interval=3600 * 24, first=1)
 
         updater.start_polling()
         updater.idle()
