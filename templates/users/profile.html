@@ -6,24 +6,39 @@
 {% endblock %}
 
 {% block css %}
-    <link href="{% static 'css/events.css' %}" rel="stylesheet">
-    <link href="{% static 'css/label_page.css' %}" rel="stylesheet">
+<link href="{% static 'css/events.css' %}" rel="stylesheet">
+<link href="{% static 'css/label_page.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
-    <span class="avatar"><img src="user.avatar"></span>
-    <h4 class="delete_ended">убрать прошедшие</h4>
-    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
-    <h1 class="naming">{{ user.username }}</h1>
-    <h4 class="bio">{{user.email}} {{user.first_name}} {{user.last_name}}</h4>
-    <h3 class="awards">Мы крутые!</h3>
-    <h1 class="events">Эвенты</h1>
-    <!--<button class="write"><img></button>-->
-    {% if active_tasks %}
-        <h4>Мои работы:</h4>
-    {% else %}
-        <h4>Работ нет</h4>
-    {% endif %}
+<span class="avatar"><img src="user.avatar"></span>
+<h4 class="delete_ended">убрать прошедшие</h4>
+<label>
+    <input type="checkbox" name="checkboxName" class="checkbox"/>
+    <div class="switch"></div>
+</label>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function()
+{
+
+$('.switch').click(function()
+{
+$(this).toggleClass("switchOn");
+});
+
+});
+</script>
+<h1 class="naming">{{ user.username }}</h1>
+<h4 class="bio">{{user.email}} {{user.first_name}} {{user.last_name}}</h4>
+<h3 class="awards">Мы крутые!</h3>
+<h1 class="events">Эвенты</h1>
+<!--<button class="write"><img></button>-->
+{% if active_tasks %}
+<h4>Мои работы:</h4>
+{% else %}
+<h4>Работ нет</h4>
+{% endif %}
     <div class="events_divs">
     {% for task in active_tasks %}
         <div class="event">
