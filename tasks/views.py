@@ -1,4 +1,5 @@
 import datetime
+import time
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseNotFound
@@ -39,6 +40,8 @@ class TaskView(View):
 
         context['MAPBOX_ACCESS_TOKEN'] = MAPBOX_ACCESS_TOKEN
         context['task_lon'], context['task_lat'] = task.point_on_map.split()
+        context['task'].datetime = context['task'].datetime.astimezone().replace(tzinfo=None)
+        print(context['task'].datetime.astimezone().replace(tzinfo=None))
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
@@ -108,7 +111,7 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
             task.name = form.cleaned_data['name']
             task.category = form.cleaned_data['category']
             task.description = form.cleaned_data['description']
-            task.datetime = form.cleaned_data['datetime']
+            task.datetime = form.cleaned_data['datetime'].replace(tzinfo=None).astimezone()
             task.settings = form.cleaned_data['settings']
             task.max_volunteer = form.cleaned_data['max_volunteer']
             task.point_on_map = form.cleaned_data['point_on_map']

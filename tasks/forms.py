@@ -35,7 +35,7 @@ class TaskForm(ModelForm, BaseForm):
 class UpdateTaskForm(ModelForm, BaseForm):
     def __init__(self, *args, **kwargs):
         super(UpdateTaskForm, self).__init__(*args, **kwargs)
-        self.initial['datetime'] = self.initial['datetime'].strftime(DATE_INPUT_FORMATS[0])
+        self.initial['datetime'] = self.initial['datetime'].astimezone().strftime(DATE_INPUT_FORMATS[0])
         self.fields['point_on_map'].widget = HiddenInput()
 
     class Meta:
