@@ -49,10 +49,8 @@ $(this).toggleClass("switchOn");
 <h3 class="awards">Уже проведено {} Эвента, Наиболее популярная категория {}</h3>
 <h1 class="events">Эвенты</h1>
 <button class="edit"><i class="bx bxs-pencil edit_btn bx-xs"></i></button>
-{% if active_tasks %}
-<h4>Мои работы:</h4>
-{% else %}
-<h4>Работ нет</h4>
+{% if not active_tasks %}
+<h4 style="position: absolute; text-align: center; top: 55vh; color: black">Работ нет</h4>
 {% endif %}
     <div class="events_divs">
     {% for task in active_tasks %}
