@@ -21,9 +21,6 @@
             });
         });
     </script>
-<!--    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">-->
-    <span class="avatar"><img src="{{ user.avatar }}"></span>
-    <h4 class="delete_ended">убрать прошедшие</h4>
     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
     <h1 class="naming">{{ user.username }}</h1>
     <h4 class="bio">{{user.email}} {{user.first_name}} {{user.last_name}}</h4>
@@ -42,7 +39,6 @@
                 <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
             <h4 class="category">Уборка</h4>
                 <h2 class="date">{{ task.datetime }}</h2>
-                <button class="go">записаться</button>
         </div>
     {% endfor %}
 
