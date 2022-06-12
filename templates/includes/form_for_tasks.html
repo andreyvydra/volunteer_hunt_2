@@ -6,7 +6,7 @@
         <h1>{% block form_title %}Заголовок{% endblock %}</h1>
 
         <div class="container">
-            <form action="" method="post" id="form">
+            <form action="" method="post" id="form" enctype="multipart/form-data">
                 {% csrf_token %}
 
                 {% for field in form %}
@@ -22,6 +22,14 @@
                         {% endif %}
                     </div>
                 {% endfor %}
+                <div id="photos" class="mb-2">
+                    <button class="btn btn-primary" type="button" onclick="add_photo()">
+                        Добавить фото
+                    </button>
+                    <button class="btn btn-danger" type="button" onclick="del_photo()">
+                        Удалить последнее фото
+                    </button>
+                </div>
                 <div id="map" style="height: 350px;"></div>
                 {% block buttons %}
                     <button type="submit" class="btn btn-primary">Отправить</button>
@@ -32,6 +40,40 @@
 {% endblock %}
 
 {% block js %}
+    <script type="text/javascript">
+        function add_photo() {
+            const element = document.getElementById('photos')
+            const count = element.getElementsByClassName('input-group mb-3 mt-2').length + 1
+
+            const parent_el = document.createElement('div')
+            parent_el.setAttribute('class', 'input-group mb-3 mt-2')
+            parent_el.setAttribute('name', 'photo-input')
+
+            const text_field = document.createElement('input')
+            text_field.setAttribute('class', 'form-control')
+            text_field.setAttribute('type', 'text')
+            text_field.setAttribute('name', 'photo-text' + count)
+            text_field.setAttribute('placeholder', 'Напишите название фото')
+            parent_el.appendChild(text_field)
+
+            const photo = document.createElement('input')
+            photo.setAttribute('class', 'form-control')
+            photo.setAttribute('type', 'file')
+            photo.setAttribute('name', 'photo' + count)
+            photo.setAttribute('accept', 'image/*')
+
+            parent_el.appendChild(photo)
+
+            element.appendChild(parent_el)
+        }
+
+        function del_photo() {
+            const element = document.getElementById('photos')
+            const photo_input = element.getElementsByClassName('input-group mb-3 mt-2')
+            element.removeChild(photo_input.item(photo_input.length - 1))
+
+        }
+    </script>
     <script type="text/javascript">
         var center = [37.6562, 55.7753]
         mapboxgl.accessToken = "{{ MAPBOX_ACCESS_TOKEN }}";
@@ -56,12 +98,46 @@
                 maximumAge: 0
             }
 
-            function error(err) {}
+            const geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            mapboxgl: mapboxgl,
+            marker: false,
+            placeholder: 'Поиск',
+        });
+
+        map.addControl(geocoder);
+
+        map.on('load', () => {
+            map.addSource('single-point', {
+            'type': 'geojson',
+            'data': {
+                'type': 'FeatureCollection',
+                'features': []
+        }
+        });
+
+        map.addLayer({
+            'id': 'point',
+            'source': 'single-point',
+            'type': 'circle',
+            'paint': {
+                'circle-radius': 10,
+                'circle-color': '#448ee4'
+            }
+        });
+
+        geocoder.on('result', (event) => {
+            map.getSource('single-point').setData(event.result.geometry);
+        });
+    });
+
+            function error(err) {
+            }
 
             function success(pos) {
-              const crd = pos.coords;
-              center = [crd.longitude, crd.latitude]
-              map.setCenter(center)
+                const crd = pos.coords;
+                center = [crd.longitude, crd.latitude]
+                map.setCenter(center)
             }
 
             navigator.geolocation.getCurrentPosition(success, error, options);

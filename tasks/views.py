@@ -11,7 +11,7 @@ from django.views.generic import CreateView, UpdateView
 
 from hackaton_test.settings import MAPBOX_ACCESS_TOKEN
 from tasks.forms import TaskForm, UpdateTaskForm
-from tasks.models import Task
+from tasks.models import Task, Photo
 from user.models import Employer, Volunteer, User
 
 
@@ -40,7 +40,6 @@ class TaskView(View):
         context['MAPBOX_ACCESS_TOKEN'] = MAPBOX_ACCESS_TOKEN
         context['task_lon'], context['task_lat'] = task.point_on_map.split()
         context['task'].datetime = context['task'].datetime.astimezone().replace(tzinfo=None)
-        print(context['task'].datetime.astimezone().replace(tzinfo=None))
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
@@ -104,16 +103,29 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
     def post(self, request, *args, **kwargs):
         form = CreateTaskView.form_class(request.POST or None)
         if form.is_valid():
-            task = Task()
-            creator = Employer.objects.get(user_id=request.user.id)
-            task.creator = creator
-            task.name = form.cleaned_data['name']
-            task.category = form.cleaned_data['category']
-            task.description = form.cleaned_data['description']
-            task.datetime = form.cleaned_data['datetime'].replace(tzinfo=None).astimezone()
-            task.settings = form.cleaned_data['settings']
-            task.max_volunteer = form.cleaned_data['max_volunteer']
-            task.point_on_map = form.cleaned_data['point_on_map']
+            task = Task.objects.create(
+                name=form.cleaned_data['name'],
+                category=form.cleaned_data['category'],
+                creator=Employer.objects.get(user_id=request.user.id),
+                description=form.cleaned_data['description'],
+                datetime=form.cleaned_data['datetime'].replace(tzinfo=None).astimezone(),
+                settings=form.cleaned_data['settings'],
+                max_volunteer=form.cleaned_data['max_volunteer'],
+                point_on_map=form.cleaned_data['point_on_map']
+            )
+            task.save()
+            counter = 1
+            while True:
+                if f'photo-text{counter}' in request.POST:
+                    photo = Photo.objects.create(
+                        description=request.POST[f'photo-text{counter}'],
+                        photo=request.FILES[f'photo{counter}']
+                    )
+                    photo.save()
+                    task.photos.add(photo)
+                    counter += 1
+                else:
+                    break
             task.save()
             return render(request, 'task/successful_create_task.html', context={"task_id": task.id})
         return redirect(reverse_lazy('map'))
