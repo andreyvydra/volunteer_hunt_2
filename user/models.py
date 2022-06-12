@@ -53,6 +53,9 @@ class Employer(models.Model):
         to=User,
         on_delete=models.CASCADE,
     )
+    link = models.CharField(verbose_name='Ссылка на проект или на фонд',
+                            max_length=128,
+                            null=True)
 
     class Meta:
         verbose_name = "Работодатель"

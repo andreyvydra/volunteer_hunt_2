@@ -1,13 +1,13 @@
 .event{
     position: relative;
     width: 100vw;
-    height: 10vw;
+    height: 20vh;
 }
 
 .line{
     position: absolute;
     width: 100vw;
-    height: 4px;
+    height: 0.25vw;
     background-color: black;
     display: inline-block;
 }
@@ -15,36 +15,35 @@
 .event_name{
     position: absolute;
     color: black;
-    font-size: 2vw;
+    font-size: 30px;
     left: 8vw;
-    top: 4vw;
+    top: 40%;
     max-width: 40vw;
 }
 
 .show_on_map{
     position: absolute;
     color: #767676;
-    font-size: 1vw;
+    font-size: 15px;
     left: 8vw;
-    top: 7vw;
+    top: 60%;
 }
 
 .category{
     position: absolute;
     color: #767676;
-    font-size: 1vw;
-    top: 4.25vw;
-    left: 50vw;
-    max-width: calc(80vw - 10vh);
+    font-size: 2vh;
+    top: 10%;
+    right: 45vw;
+    max-width: 30vw;
 }
 
 .date{
     position: absolute;
     color: black;
-    right: 10vh;
-    top: 3vw;
-    max-width: 13vw;
-    font-size: 1.25vw;
+    right: 15vw;
+    top: 40%;
+    font-size: 15px;
     float: right;
 }
 
