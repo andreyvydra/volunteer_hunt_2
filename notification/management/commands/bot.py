@@ -17,6 +17,7 @@ class Command(BaseCommand):
             use_context=True
         )
         updater.dispatcher.add_handler(CommandHandler('start', self.connect_user))
+        updater.dispatcher.add_handler(CommandHandler('get_next_task', self.get_next_task))
 
         self.bot = Bot(
             token=settings.TELEGRAM_BOT_TOKEN
@@ -33,7 +34,7 @@ class Command(BaseCommand):
             volunteer = Volunteer.objects.filter(user_id=user.id)
             output_msg = f"Добрый день, {user.username}!\n" \
                          f"Сегодня у вас следующие события: \n\n"
-            self.send_message(user.telegram_chat_id, output_msg)
+            was_sended_first_message = False
 
             if volunteer:
                 tasks = Task.objects.filter(volunteers=volunteer[0].id)
@@ -42,13 +43,40 @@ class Command(BaseCommand):
                 tasks = employer.my_tasks.all()
 
             for task in tasks:
-                if timezone.now().date() != task.datetime.date():
-                    new_msg = f"{task.name} в {task.datetime.astimezone().time()}" \
-                               f" (http://127.0.0.1:8000" \
-                               f"{reverse_lazy('task_view', kwargs={'pk': task.id})})"
-                    lon, lat = task.point_on_map.split()
-                    self.send_message(user.telegram_chat_id, new_msg)
-                    self.send_location(user.telegram_chat_id, lon, lat)
+                if timezone.now().date() == task.datetime.date():
+                    if not was_sended_first_message:
+                        self.send_message(user.telegram_chat_id, output_msg)
+                        was_sended_first_message = True
+                    self.send_message_about_task(user, task)
+
+    def get_next_task(self, update, context):
+        chat = update.message.chat
+        user = User.objects.filter(telegram_chat_id=chat.id)
+        if user:
+            user = user[0]
+            volunteer = Volunteer.objects.filter(user_id=user.id)
+
+            if volunteer:
+                tasks = Task.objects.order_by('-datetime'). \
+                    filter(volunteers=volunteer[0].id, datetime__gte=timezone.now())
+            else:
+                employer = Employer.objects.filter(user_id=user.id)[0]
+                tasks = employer.my_tasks.order_by('-datetime').filter(datetime__gte=timezone.now())
+
+            if tasks:
+                self.send_message_about_task(user, tasks[0])
+            else:
+                self.send_message(chat.id, "Следующая задача отсутствует")
+        else:
+            self.send_message(chat.id, "Вам недоступна данная команда")
+
+    def send_message_about_task(self, user, task):
+        lon, lat = task.point_on_map.split()
+        new_msg = f"{task.name} в {task.datetime.astimezone().time()}" \
+                  f" (http://127.0.0.1:8000" \
+                  f"{reverse_lazy('task_view', kwargs={'pk': task.id})})"
+        self.send_message(user.telegram_chat_id, new_msg)
+        self.send_location(user.telegram_chat_id, lon, lat)
 
     def send_message(self, chat_id, msg):
         try:
@@ -61,6 +89,7 @@ class Command(BaseCommand):
             self.bot.send_location(chat_id=chat_id, longitude=lon, latitude=lat)
         except:
             print(f"Chat not found for {chat_id} or incorrect lonLat ({lon}, {lat})")
+
 
     def connect_user(self, update, context):
         chat = update.message.chat
