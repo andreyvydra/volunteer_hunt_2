@@ -15,6 +15,7 @@
             <p>На задаче уже <strong>{{ volunteers_number }} </strong>волонтёр(а)!</p>
         {% endif %}
         {% if photos %}
+            <h4>Фотки</h4>
             <div id="carouselBasicExample" class="carousel slide carousel-fade" data-mdb-ride="carousel">
                 <div class="carousel-inner">
                     {% for photo in photos %}

@@ -85,6 +85,28 @@ class UpdateTaskView(LoginRequiredMixin, UpdateView):
         context['color'] = self.object.category.color
         return context
 
+    def post(self, request, **kwargs):
+        super().post(request, **kwargs)
+        task = Task.objects.get(
+            pk=kwargs['pk']
+        )
+        print(task)
+        counter = 1
+        photos = []
+        while True:
+            if f'photo-text{counter}' in request.POST:
+                photo = Photo.objects.create(
+                    description=request.POST[f'photo-text{counter}'],
+                    photo=request.FILES[f'photo{counter}']
+                )
+                photo.save()
+                photos.append(photo)
+                counter += 1
+            else:
+                break
+        task.photos.set(photos)
+        return redirect(self.success_url)
+
 
 class CreateTaskView(LoginRequiredMixin, CreateView):
     form_class = TaskForm
@@ -116,6 +138,7 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
             )
             task.save()
             counter = 1
+            photos = []
             while True:
                 if f'photo-text{counter}' in request.POST:
                     photo = Photo.objects.create(
@@ -123,10 +146,10 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
                         photo=request.FILES[f'photo{counter}']
                     )
                     photo.save()
-                    task.photos.add(photo)
+                    photos.append(photo)
                     counter += 1
                 else:
                     break
-            task.save()
+            task.photos_set.set(photos)
             return render(request, 'task/successful_create_task.html', context={"task_id": task.id})
         return redirect(reverse_lazy('map'))
