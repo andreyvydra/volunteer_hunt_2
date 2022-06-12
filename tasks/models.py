@@ -45,7 +45,7 @@ class TaskSettings(models.Model):
 class Photo(models.Model):
     description = models.TextField(verbose_name="Описание")
 
-    photo = models.ImageField(upload_to="photos/", verbose_name="Фото")
+    photo = models.ImageField(upload_to="static/photos/", verbose_name="Фото")
 
     class Meta:
         verbose_name = "Фотография"
