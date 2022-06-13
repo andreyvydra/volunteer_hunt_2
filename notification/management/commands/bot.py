@@ -96,8 +96,14 @@ class Command(BaseCommand):
         user = User.objects.filter(telegram_id=chat.username)
         if user:
             user = user[0]
-            user.telegram_chat_id = chat.id
-            user.save()
-            self.bot.send_message(chat.id, "Аккаунт успешно привязан к рассылке")
+            if user.telegram_chat_id:
+                self.bot.send_message(chat.id, "Аккаунт уже привязан к рассылке")
+            else:
+                user.telegram_chat_id = chat.id
+                user.save()
+                self.bot.send_message(chat.id, "Аккаунт успешно привязан к рассылке!\n"
+                                               "Теперь раз в день вам будет приходить рассылка "
+                                               "о ваших задачах на день. Спасибо за использование "
+                                               "нашего сервиса!")
         else:
             self.bot.send_message(chat.id, "Аккаунт не зарегистрирован в системе")

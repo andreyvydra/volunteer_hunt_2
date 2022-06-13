@@ -71,16 +71,19 @@ VolunteerHunt
             <p class="award_text"><img src="{% static 'img/homepage/five.png' %}"
                                        style="max-width: 20px; margin-right: 10px; margin-top: -3px">Наибольшее
                 количество эвентов проведенных <span
-                        class="greeting_red">{работадателем}</span></p>
+                        class="greeting_red">работадателем - {{ biggest_number_of_tasks_employer }}</span></p>
         </div>
         <div>
             <p class="award_text"><img src="{% static 'img/homepage/people.png' %}"
                                        style="max-width: 20px; margin-right: 10px; margin-top: -3px">Самый популярный
-                <span class="greeting_red">{эвент}</span></p>
+                <span class="greeting_red">эвент -
+                    <a href="{% url 'task_view' most_popular_event.id %}">{{most_popular_event}}</a></span></p>
         </div>
         <div>
             <p class="award_text"><img src="{% static 'img/homepage/animals.png' %}" style="max-width: 20px; margin-right:
-                10px; margin-top: -3px"><span class="greeting_red">{Работадатель}</span> с наибольшим количеством
+                10px; margin-top: -3px">
+                <span class="greeting_red">{{most_valuable_employer}} - работадатель</span>
+                с наибольшим количеством
                 эвентов в
                 поддерку друзей наших меньших</p>
         </div>
