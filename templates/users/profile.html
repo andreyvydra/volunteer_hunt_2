@@ -36,20 +36,22 @@
         });
 
     </script>
-    <div class="naming_div">
-        <h1 class="naming">{{ user }}</h1>
-        <span class="tg_span">
+<div class="naming_div">
+    <h1 class="naming">{{ user }}</h1>
+    <span class="tg_span">
         <a href="https://t.me/volunteer_hunt_2_bot">
             <i class="bx bxl-telegram tg_btn bx-xs"></i>
         </a>
         </span>
-    </div>
-    <h4 class="bio">{{ user.email }} </h4>
-    <h3 class="awards">Уже проведено {{ count_not_active_tasks }} Эвента,
-        Наиболее популярная категория {{ most_popular }}</h3>
-    <h1 class="events">Эвенты</h1>
-    <button class="edit"><i class="bx bxs-pencil edit_btn bx-xs"></i></button>
-    {% if not active_tasks %}
+</div>
+<h4 class="bio">{{ user.email }} </h4>
+<h3 class="awards">Уже проведено {{ count_not_active_tasks }} Эвента,
+    Наиболее популярная категория {{ most_popular }}</h3>
+<div class="events">
+    <h1 style="color: black">Эвенты</h1>
+</div>
+<button class="edit"><i class="bx bxs-pencil edit_btn bx-xs"></i></button>
+{% if not active_tasks %}
 <h4 style="position: absolute; text-align: center; top: 55vh; color: black">Работ нет</h4>
 {% endif %}
 <div class="events_divs">
@@ -57,7 +59,7 @@
             <div class="event">
                 <line class="line"></line>
                 <h2 class="event_name">{{ task.name }}</h2>
-                <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать подробнее</h4></a>
+                <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
                 <h4 class="category">{{ task.category }}</h4>
                 <h2 class="date">{{ task.datetime }}</h2>
             </div>
@@ -67,7 +69,7 @@
             <div class="event ended_event">
                 <line class="line"></line>
                 <h2 class="event_name">{{ task.name }}</h2>
-                <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать подробнее</h4></a>
+                <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
                 <h4 class="category">{{ task.category }}</h4>
                 <h2 class="date">{{ task.datetime }}</h2>
             </div>
