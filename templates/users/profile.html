@@ -57,7 +57,7 @@
             <div class="event">
                 <line class="line"></line>
                 <h2 class="event_name">{{ task.name }}</h2>
-                <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
+                <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать подробнее</h4></a>
                 <h4 class="category">{{ task.category }}</h4>
                 <h2 class="date">{{ task.datetime }}</h2>
             </div>
@@ -67,7 +67,7 @@
             <div class="event ended_event">
                 <line class="line"></line>
                 <h2 class="event_name">{{ task.name }}</h2>
-                <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
+                <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать подробнее</h4></a>
                 <h4 class="category">{{ task.category }}</h4>
                 <h2 class="date">{{ task.datetime }}</h2>
             </div>

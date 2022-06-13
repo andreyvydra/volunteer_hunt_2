@@ -90,7 +90,6 @@ class Command(BaseCommand):
         except:
             print(f"Chat not found for {chat_id} or incorrect lonLat ({lon}, {lat})")
 
-
     def connect_user(self, update, context):
         chat = update.message.chat
         user = User.objects.filter(telegram_id=chat.username)
