@@ -61,8 +61,7 @@ ROOT_URLCONF = 'hackaton_test.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,7 +113,6 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/auth/login'
@@ -125,4 +123,3 @@ DATE_INPUT_FORMATS = ['%Y-%m-%dT%H:%M:%S', ]
 
 # Настройки бота
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-
