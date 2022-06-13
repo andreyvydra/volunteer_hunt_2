@@ -1,6 +1,7 @@
 <header class="nav_bar" style="position: fixed">
     <div class="menu">
         <a href="{% url 'map' %}"><i class='bx bx-map-alt menu_boxes bx-md'></i></a>
+        <a href="{% url 'task_create' %}"><i class='bx bx-location-plus menu_boxes bx-md'></i></a>
         <a href="{% url 'users-profile' %}"><i class='bx bx-face menu_boxes bx-md'></i></a>
         <a href="{% url 'homepage' %}"><i class='bx bx-home-alt-2 menu_boxes bx-md'></i></a>
         {% if request.user.is_authenticated %}

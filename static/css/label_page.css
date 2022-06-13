@@ -177,7 +177,15 @@ left: 1vw !important;
     position: absolute;
     top: 44vh;
     left: 8vw;
-    color: black;
+}
+
+.add_event_btn{
+    position: relative;
+    background-color: black;
+    border: none;
+    height: 3vw;
+    width; 3vw;
+    border-radius: 1.5vw;
 }
 
 .write{
