@@ -1,12 +1,9 @@
-import datetime
-
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import View
 
-from user.models import User, Volunteer, Employer
+from user.models import Volunteer, Employer
 
 import django.contrib.auth.views as admin_views
 

@@ -1,6 +1,3 @@
-import datetime
-
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.utils import timezone
 from django.views import View
