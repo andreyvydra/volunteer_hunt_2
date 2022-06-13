@@ -194,5 +194,8 @@ left: 1vw !important;
 
 .events_divs{
     position: absolute;
+    right: 0;
+    left: 0;
     top: 51vh;
+    width: 100vw;
 }

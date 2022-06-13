@@ -49,28 +49,32 @@
         Наиболее популярная категория {{ most_popular }}</h3>
     <h1 class="events">Эвенты</h1>
     <button class="edit"><i class="bx bxs-pencil edit_btn bx-xs"></i></button>
-    {% if not active_tasks %}
-<h4 style="position: absolute; text-align: center; top: 55vh; color: black">Работ нет</h4>
-{% endif %}
-<div class="events_divs">
-        {% for task in active_tasks %}
-            <div class="event">
-                <line class="line"></line>
-                <h2 class="event_name">{{ task.name }}</h2>
-                <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
-                <h4 class="category">{{ task.category }}</h4>
-                <h2 class="date">{{ task.datetime }}</h2>
-            </div>
-        {% endfor %}
+    {% if not not_active_tasks and not active_tasks %}
+        <h4 style="position: absolute; text-align: center; top: 55vh; width: 100vw; color: black">Работ нет</h4>
+        {% include 'includes/footer.html' %}
+    {% endif %}
+    {% if not_active_tasks or active_tasks %}
+        <div class="events_divs">
+                {% for task in active_tasks %}
+                    <div style="width:100vw">
+                        <line class="line"></line>
+                        <h2 class="event_name">{{ task.name }}</h2>
+                        <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
+                        <h4 class="category">{{ task.category }}</h4>
+                        <h2 class="date">{{ task.datetime }}</h2>
+                    </div>
+                {% endfor %}
 
-        {% for task in not_active_tasks %}
-            <div class="event ended_event">
-                <line class="line"></line>
-                <h2 class="event_name">{{ task.name }}</h2>
-                <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
-                <h4 class="category">{{ task.category }}</h4>
-                <h2 class="date">{{ task.datetime }}</h2>
-            </div>
-        {% endfor %}
-    </div>
+                {% for task in not_active_tasks %}
+                    <div class="event ended_event">
+                        <line class="line"></line>
+                        <h2 class="event_name">{{ task.name }}</h2>
+                        <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
+                        <h4 class="category">{{ task.category }}</h4>
+                        <h2 class="date">{{ task.datetime }}</h2>
+                    </div>
+                {% endfor %}
+            {% include 'includes/footer.html' %}
+        </div>
+    {% endif %}
 {% endblock %}

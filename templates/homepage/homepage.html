@@ -10,7 +10,6 @@ VolunteerHunt
 
 {% block main %}
 <span class="grey_rect"></span>
-
 <p class="greeting"><span class="'greeting_red">Приветствуем</span> на <span
         class="greeting_red">Volunteer</span>Hunt!</p>
 <img src="{% static 'img/homepage/hello.png' %}" class="hello">
@@ -28,7 +27,11 @@ VolunteerHunt
     <img src="{% static 'img/homepage/five.png' %}" class="five">
 </div>
 <div class="main_info_block">
-
+<styles>
+    .site-footer{
+        top: 112%;
+    }
+</styles>
     <span class="divinding_line"></span>
 
     <div>
@@ -82,14 +85,14 @@ VolunteerHunt
         <div>
             <p class="award_text"><img src="{% static 'img/homepage/animals.png' %}" style="max-width: 20px; margin-right:
                 10px; margin-top: -3px">
-                <span class="greeting_red">{{most_valuable_employer}} - работадатель</span>
+                <span class="greeting_red">{{most_valuable_employer}} - работодатель</span>
                 с наибольшим количеством
                 эвентов в
                 поддерку друзей наших меньших</p>
         </div>
     </div>
-</div>
-<span class="very_grey_rect_repeat">
-
+    <span class="very_grey_rect_repeat"></span>
 </span>
+    {% include 'includes/footer.html' %}
+</div>
 {% endblock %}
