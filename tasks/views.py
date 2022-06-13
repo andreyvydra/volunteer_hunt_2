@@ -117,7 +117,7 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
     def dispatch(self, request, *args, **kwargs):
         employer = Employer.objects.filter(user_id=request.user.id)
         if not employer:
-            return HttpResponseNotFound('Задача не была найдена')
+            return HttpResponseNotFound('Вы не можете создавать задачи')
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):

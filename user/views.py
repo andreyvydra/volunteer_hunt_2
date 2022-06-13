@@ -47,7 +47,7 @@ class ProfileView(View):
                 key = i.category
 
         context['most_popular'] = key
-
+        print(context)
         return render(request, self.template_name, context)
 
 

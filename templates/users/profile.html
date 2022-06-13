@@ -56,10 +56,10 @@
     {% if not_active_tasks or active_tasks %}
         <div class="events_divs">
                 {% for task in active_tasks %}
-                    <div style="width:100vw">
+                    <div class="event" style="width:100vw">
                         <line class="line"></line>
                         <h2 class="event_name">{{ task.name }}</h2>
-                        <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
+                        <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать подробнее</h4></a>
                         <h4 class="category">{{ task.category }}</h4>
                         <h2 class="date">{{ task.datetime }}</h2>
                     </div>
@@ -69,12 +69,12 @@
                     <div class="event ended_event">
                         <line class="line"></line>
                         <h2 class="event_name">{{ task.name }}</h2>
-                        <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать на карте</h4></a>
+                        <a href="{% url 'task_view' task.id %}"><h4 class="show_on_map">показать подробнее</h4></a>
                         <h4 class="category">{{ task.category }}</h4>
                         <h2 class="date">{{ task.datetime }}</h2>
                     </div>
                 {% endfor %}
-            {% include 'includes/footer.html' %}
+        {% include 'includes/footer.html' %}
         </div>
     {% endif %}
 {% endblock %}
