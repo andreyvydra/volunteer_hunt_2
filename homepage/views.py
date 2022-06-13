@@ -20,7 +20,8 @@ class HomepageView(View):
         context['most_valuable_employer'] = Employer.objects.order_by('-my_tasks').all()
         if context['most_valuable_employer']:
             context['most_valuable_employer'] = context['most_valuable_employer'][0]
+            context['biggest_number_of_tasks_employer'] = len(context['most_valuable_employer'].my_tasks.all())
         else:
             context['most_valuable_employer'] = None
-        context['biggest_number_of_tasks_employer'] = len(context['most_valuable_employer'].my_tasks.all())
+            context['biggest_number_of_tasks_employer'] = None
         return render(request, HomepageView.template_name, context=context)
