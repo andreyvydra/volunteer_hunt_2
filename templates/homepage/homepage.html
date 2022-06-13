@@ -70,7 +70,9 @@ VolunteerHunt
             <p class="award_text"><img src="{% static 'img/homepage/people.png' %}"
                                        style="max-width: 20px; margin-right: 10px; margin-top: -3px">Самый популярный
                 <span class="greeting_red">эвент -
-                    <a href="{% url 'task_view' most_popular_event.id %}">{{most_popular_event}}</a></span></p>
+                    {% if most_popular_event %}
+                        <a href="{% url 'task_view' most_popular_event.id %}">{{most_popular_event}}</a></span></p>
+                    {% endif %}
         </div>
         <div>
             <p class="award_text"><img src="{% static 'img/homepage/animals.png' %}" style="max-width: 20px; margin-right:
